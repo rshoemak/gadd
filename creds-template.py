@@ -12,7 +12,7 @@ Ideally this would be inputted via env at runtime
 
 lg_inp = "<user_login_name>"
 ps_inp = "<user_password>"
-url_inp = "<url_to_device"
+url_inp = "<url_to_device>"
 tk_inp = "Bearer <spark room token>"
 rm_inp = "<TBD: future place holder>"
 
