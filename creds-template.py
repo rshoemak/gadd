@@ -16,6 +16,7 @@ url_inp = "<url_to_device>"
 tk_inp = "Bearer <spark room token>"
 rm_inp = "<TBD: future place holder>"
 
+
 def nvfis_getgcred():
     login = lg_inp
     password = ps_inp
@@ -27,4 +28,3 @@ def spark_GetArgs():
     token = tk_inp
     # add other variables as needed and return
     return token
-

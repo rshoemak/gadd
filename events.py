@@ -4,6 +4,3 @@
 def trigger_event():
     e_trigger = "10.100.1.10"
     return e_trigger
-
-
-

@@ -6,7 +6,3 @@ def set_static_vars():
     color = "red"
     song = "happy_birthday"
     return color, song
-
-
-
-

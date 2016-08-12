@@ -30,8 +30,8 @@ def setup_room():
 
 def create_alert_room():
     spark_r = spark_host + "/v1/rooms"
-    spark_body = {"title":"Alert Room"}
-    page = requests.post(spark_r, headers = spark_headers, json=spark_body)
+    spark_body = {"title": "Alert Room"}
+    page = requests.post(spark_r, headers=spark_headers, json=spark_body)
     room = page.json()
     return room
 
@@ -48,23 +48,23 @@ def add_email_alert_room(email, alert_room_id):
     member = get_membership_for_room(alert_room_id)
     personEmail_id = ""
 
-    for k,v in member[0].items():
+    for k, v in member[0].items():
         if k == 'personEmail':
             personEmail_id = v
 
     if personEmail_id != email:
         spark_r = spark_host + "/v1/memberships"
-        spark_body = {"personEmail": email, "roomId" : alert_room_id}
-        page = requests.post(spark_r, headers = spark_headers, json=spark_body)
+        spark_body = {"personEmail": email, "roomId": alert_room_id}
+        page = requests.post(spark_r, headers=spark_headers, json=spark_body)
         membership = page.json()
         return membership
-    else: return
-
+    else:
+        return
 
 
 def get_membership_for_room(alert_room_id):
     spark_r = spark_host + "/v1/memberships?roomId=%s" % (alert_room_id)
-    page = requests.get(spark_r, headers = spark_headers)
+    page = requests.get(spark_r, headers=spark_headers)
     memberships = page.json()["items"]
     return memberships
 
@@ -74,5 +74,3 @@ def send_alert(alert_room_id, message):
     headers = {'Content-type': 'application/json', 'Authorization': token}
     data = {'roomId': alert_room_id, 'text': message}
     requests.post(spark_api, headers=headers, data=json.dumps(data))
-
-

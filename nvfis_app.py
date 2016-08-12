@@ -2,7 +2,7 @@ import requests
 import sys
 import json
 import creds
-import staticvars
+# import staticvars
 import events
 import sparky
 
@@ -17,15 +17,15 @@ def test_nvfis(ss):
     do_message_(message)
     return img
     # stuff to work with parsing
-    #resp = img['images']['image']
-    #resp = page.json()
-    #return resp
-    #resp = page.content  #open format print out for reference
+    # resp = img['images']['image']
+    # resp = page.json()
+    # return resp
+    # resp = page.content  #open format print out for reference
+
 
 def do_message_(mess):
     sparky.send_alert(alert_room_id, mess)
     return
-
 
 
 if __name__ == '__main__':
@@ -53,5 +53,3 @@ if __name__ == '__main__':
     print "Images result: {}".format(r_imgs)
 
     # to do - figure out tar, ftp stuff...
-
-
