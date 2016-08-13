@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Gadd NFVis ACI</title>
+        <link rel="stylesheet" href="style.css" type="text/css">
+        <script src="amcharts/amcharts.js" type="text/javascript"></script>
+        <script src="amcharts/gauge.js" type="text/javascript"></script>
+
+        <script>
+            var ACI_H = 20; // Set ACI health score value here
+            var health = ACI_H; 
+            var chart = AmCharts.makeChart("chartdiv", {
+                type: "gauge",
+                titles: [{
+                    "text": "Gadd Application Health",
+                    "size": 15
+                }],
+
+                axes: [{
+                    startValue: 0,
+                    axisThickness: 2,
+                    endValue: 100,
+                    valueInterval: 10,
+                    bottomTextYOffset: -20,
+                    bottomText: "Health Score",
+
+                    bands: [{
+                            startValue: 0,
+                            endValue: 65,
+                            innerRadius: "70%",
+                            color: "#ea3838"
+                        },
+
+                        {
+                            startValue: 60,
+                            endValue: 80,
+                            innerRadius: "70%",
+                            color: "#ffac29"
+                        },
+
+                        {
+                            startValue: 80,
+                            endValue: 100,
+                            innerRadius: "70%",
+                            color: "#00CC00",
+                        }
+                    ]
+                }],
+
+                arrows: [{}]
+            });
+
+            setInterval(randomValue, 0);
+            
+             // set random value
+            function randomValue() {
+                //var value = Math.round(Math.random() * 200);
+                var value = health; // set this value from ACI
+                chart.arrows[0].setValue(value);
+                chart.axes[0].setBottomText("Health Score");
+            }
+        </script>
+    </head>
+
+    <body>
+        <div id="chartdiv" style="width:500px; height:400px;"></div>
+        <p>Cisco NGIPS detected a threat on Gadd Application from remote branch.<br>
+        Implementing FW at branch.</p>
+    </body>
+
+</html>
