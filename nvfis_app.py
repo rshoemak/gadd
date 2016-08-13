@@ -5,6 +5,9 @@ import creds
 # import staticvars
 import events
 import sparky
+import acitoolkit.acitoolkit as aci
+
+
 
 # Main Program
 
@@ -14,7 +17,7 @@ def test_nvfis(ss):
     u = url + "/api/config/esc_datamodel/images"
     page = ss.get(u)
     img = json.loads(page.content)
-    do_message_(message)
+    #do_message_(message)
     return img
     # stuff to work with parsing
     # resp = img['images']['image']
@@ -43,6 +46,16 @@ if __name__ == '__main__':
     s.auth = (login, password)
     s.headers = ({'Content-type': 'application/vnd.yang.data+json', 'Accept': 'application/vnd.yang.data+json'})
     s.verify = False
+
+    # log into APIC (place holder)
+    # a_url, a_login, a_password = creds.apic_GetArgs()
+    # session = aci.Session(a_url, a_login, a_password)
+    # session.verify_ssl = False
+    # a_resp = session.login()
+    # if not a_resp.ok:
+    #     print "%% Could not login to APIC"
+    #     sys.exit(0)
+
 
     # Create room if not already created.
     # Add in additional members manually. To do - add in automatically

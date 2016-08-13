@@ -15,6 +15,9 @@ ps_inp = "<user_password>"
 url_inp = "<url_to_device>"
 tk_inp = "Bearer <spark room token>"
 rm_inp = "<TBD: future place holder>"
+aur_inp = "<apic_url>"
+alg_inp = "<apic_user>"
+aps_inp = "<apic_password>"
 
 
 def nvfis_getgcred():
@@ -28,3 +31,12 @@ def spark_GetArgs():
     token = tk_inp
     # add other variables as needed and return
     return token
+
+
+def apic_GetArgs():
+    # enter in your credentials for your APIC
+    a_url = aur_inp
+    a_login = alg_inp
+    a_password = aps_inp
+    return a_url, a_login, a_password
+
