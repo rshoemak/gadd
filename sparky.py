@@ -17,7 +17,7 @@ def setup_room():
 # Look for a room called "Alert Room"
     alert_room_id = ""
     for room in room_items:
-        if room["title"] == "Alert Room":
+        if room["title"] == "Gadd Alert Room":
             alert_room_id = room["id"]
             return alert_room_id
 
@@ -30,7 +30,7 @@ def setup_room():
 
 def create_alert_room():
     spark_r = spark_host + "/v1/rooms"
-    spark_body = {"title": "Alert Room"}
+    spark_body = {"title": "Gadd Alert Room"}
     page = requests.post(spark_r, headers=spark_headers, json=spark_body)
     room = page.json()
     return room
