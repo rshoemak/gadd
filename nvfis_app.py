@@ -1,3 +1,4 @@
+
 import requests
 import sys
 import json
@@ -7,8 +8,6 @@ import events
 import sparky
 import acitoolkit.acitoolkit as aci
 import aci_data
-
-
 
 
 # Main Program
