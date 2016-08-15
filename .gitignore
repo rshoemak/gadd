@@ -4,3 +4,4 @@ tar-test.py
 tarfile_add.tar
 TESTFILE.txt
 archive
+gadd_setup_lab.sh
