@@ -39,4 +39,3 @@ def apic_GetArgs():
     a_login = alg_inp
     a_password = aps_inp
     return a_url, a_login, a_password
-

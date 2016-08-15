@@ -57,7 +57,6 @@ if __name__ == '__main__':
         print "%% Could not login to APIC"
         sys.exit(0)
 
-
     # Create room if not already created.
     # Add in additional members manually. To do - add in automatically
     alert_room_id = sparky.setup_room()
@@ -75,4 +74,3 @@ if __name__ == '__main__':
     do_message_(aci_egress_data)
     aci_ingress_data = aci_data.get_ingress_app_data(session)
     do_message_(aci_ingress_data)
-
