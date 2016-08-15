@@ -1,4 +1,4 @@
-FROM cpuskarz/aci-php-nginx
+FROM cpuskarz/gaddapp2
 MAINTAINER chet carello "cpuskarz@cisco.com"
 
 EXPOSE 8000
