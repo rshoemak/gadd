@@ -4,7 +4,6 @@ build:
     - env
     - curl https://api.ciscospark.com/v1/messages -X POST -H "Authorization:Bearer $$SPARK_TOKEN" --data "roomId=$$SPARK_ROOM" --data "text=Drone kicking off build number  $CI_BUILD_NUMBER"
 
-
 publish:
   docker:
     repo: $$DOCKER_USERNAME/gadd
@@ -12,7 +11,6 @@ publish:
     username: $$DOCKER_USERNAME
     password: $$DOCKER_PASSWORD
     email: $$DOCKER_EMAIL
-
 
 deploy:
   webhook:
@@ -24,3 +22,4 @@ deploy:
       password: $$MANTL_PASSWORD
     urls:
       - https://$$MANTL_CONTROL/marathon/v2/apps/imapex/gadd/gadd/restart?force=true
+
