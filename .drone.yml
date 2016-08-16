@@ -1,0 +1,4 @@
+build:
+  image: cpuskarz/gaddapp2.1.2:latest
+  commands:
+    - env
