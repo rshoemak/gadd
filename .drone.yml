@@ -24,3 +24,4 @@ deploy:
       password: $$MANTL_PASSWORD
     urls:
       - https://$$MANTL_CONTROL/marathon/v2/apps/imapex/gadd/gadd/restart?force=true
+
