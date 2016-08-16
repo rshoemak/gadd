@@ -23,6 +23,6 @@ deploy:
       username: devops1
       password: DEVOPS1
     urls:
-      - https://$$MANTL_CONTROL:8080/marathon/v2/apps/imapex/gadd/gadd/restart?force=true
+      - https://$$MANTL_CONTROL/marathon/v2/apps/imapex/gadd/gadd/restart?force=true
 
 
