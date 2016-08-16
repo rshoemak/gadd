@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>NFVIS Deployment</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <style>
             P {text-align: center; }
             IMG {text-align: center; }
