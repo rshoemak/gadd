@@ -23,4 +23,4 @@ deploy:
       username: $$MANTL_USERNAME
       password: $$MANTL_PASSWORD
     urls:
-      - https://$$MANTL_CONTROL/marathon/v2/apps/imapex/gadd/gadd/$$DOCKER_USERNAME/restart?force=true
+      - https://$$MANTL_CONTROL/marathon/v2/apps/imapex/gadd/gadd/restart?force=true
