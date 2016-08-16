@@ -8,10 +8,11 @@ import events
 import sparky
 import acitoolkit.acitoolkit as aci
 import aci_data
+import nfvis_data
 
 
 # Main Program
-
+'''
 # Test login functionality - get images
 def test_nvfis(ss):
     message = "Logged into NFVis and looking at images"
@@ -25,7 +26,7 @@ def test_nvfis(ss):
     # resp = page.json()
     # return resp
     # resp = page.content  #open format print out for reference
-
+'''
 
 def do_message_(mess):
     sparky.send_alert(alert_room_id, mess)
@@ -62,7 +63,9 @@ if __name__ == '__main__':
     alert_room_id = sparky.setup_room()
 
     # Test NFVis login functionality
-    r_imgs = test_nvfis(s)
+    r_imgs, r_message = nfvis_data.test_nvfis(s, url)
+    do_message_(r_message)
+
     print ""
     print "Images result: {}".format(r_imgs)
     print ""
