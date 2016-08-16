@@ -1,4 +1,4 @@
-FROM cpuskarz/gadd:latest
+FROM cpuskarz/gadd:1
 MAINTAINER chet carello "cpuskarz@cisco.com"
 
 EXPOSE 8000
