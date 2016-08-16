@@ -20,8 +20,9 @@ deploy:
     skip_verify: true
     method: POST
     auth:
-      username: $$MANTL_USERNAME
-      password: $$MANTL_PASSWORD
+      username: devops1
+      password: DEVOPS1
     urls:
       - https://$$MANTL_CONTROL:8080/marathon/v2/apps/imapex/gadd/gadd/restart?force=true
+
 
