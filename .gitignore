@@ -6,3 +6,4 @@ archive
 gadd_setup_lab.sh
 my_env
 drone_secrets.yml
+.drone.sec

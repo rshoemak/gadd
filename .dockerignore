@@ -4,4 +4,4 @@ my_env
 tar-test.py
 tarfile_add.tar
 TESTFILE.txt
-
+.drone.sec
