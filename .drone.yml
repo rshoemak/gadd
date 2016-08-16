@@ -8,7 +8,7 @@ build:
 publish:
   docker:
     repo: $$DOCKER_USERNAME/gadd
-    tag: 1.1
+    tag: latest
     username: $$DOCKER_USERNAME
     password: $$DOCKER_PASSWORD
     email: $$DOCKER_EMAIL
