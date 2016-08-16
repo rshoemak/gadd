@@ -2,6 +2,8 @@
 
 import json
 
+# adding test to see if we want to build a separate file for nvfis_data or make it part of main...
+
 def test_nvfis(s, url):
     r_message = "Logged into NFVis and looking at images"
     u = url + "/api/config/esc_datamodel/images"
