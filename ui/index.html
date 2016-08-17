@@ -59,12 +59,12 @@
                 arrows: [{}]
             });
 
-            setInterval(randomValue, 0);
+            setInterval(randomValue, 2000);
             
              // set random value
             function randomValue() {
-                //var value = Math.round(Math.random() * 200);
-                var value = health; // set this value from ACI
+                var value = Math.round(Math.random() * 0.5 + health);
+                //var value = value; // set this value from ACI
                 chart.arrows[0].setValue(value);
                 chart.axes[0].setBottomText("Health Score");
             }
