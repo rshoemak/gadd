@@ -1,7 +1,7 @@
 
 import requests
 import sys
-import json
+# import json
 import creds
 # import staticvars
 import events
@@ -9,6 +9,7 @@ import sparky
 import acitoolkit.acitoolkit as aci
 import aci_data
 import nfvis_data
+import time
 
 
 # Main Program
@@ -66,6 +67,7 @@ if __name__ == '__main__':
     r_imgs, r_message = nfvis_data.test_nvfis(s, url)
     do_message_(r_message)
 
+    # Adding print statements for sanity check, delete later for production
     print ""
     print "Images result: {}".format(r_imgs)
     print ""
@@ -77,3 +79,8 @@ if __name__ == '__main__':
     do_message_(aci_egress_data)
     aci_ingress_data = aci_data.get_ingress_app_data(session)
     do_message_(aci_ingress_data)
+
+    # Need ability to wait for response 'ack' from NFVis deployment. Add sleep for now.
+    aci_post_health = aci_data.get_post_app_health(session)
+    #time.sleep(3)
+    do_message_(aci_post_health)

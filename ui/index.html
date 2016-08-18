@@ -5,6 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Gadd NFVis ACI</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+
         <style>
             P {text-align: center; }
             IMG {text-align: center; }
@@ -14,9 +15,8 @@
         </style>
         <script src="amcharts/amcharts.js" type="text/javascript"></script>
         <script src="amcharts/gauge.js" type="text/javascript"></script>
-
         <script>
-            var ACI_H = 20; // Set ACI health score value here
+            var ACI_H = 20 // Set ACI health score value here
             var health = ACI_H; 
             var chart = AmCharts.makeChart("chartdiv", {
                 type: "gauge",
@@ -73,6 +73,7 @@
 
     <body>
         <div id="chartdiv" style="width:800px; height:400px; margin:0 auto;"></div>
+
         <p class="main"><strong>Cisco NGIPS detected a threat to Gadd Application from remote branch!<br></p>
         <p><a href="nfvisrun.php"><IMG SRC="images/virus_opt.png" alt="virus"></a></p>
 

@@ -3,6 +3,7 @@
 import json
 
 tt = "Ben-Ten1"
+ttt = "MOON"
 
 
 def get_overall_app_health(session):
@@ -30,3 +31,12 @@ def get_ingress_app_data(session):
     app_ingress_unidata = page['imdata'][0]['l2IngrBytesAgHist15min']['attributes']['unicastCum']
     mess_app_ingress_data = "Ingress multicast/unicast: {} / {}".format(app_ingress_mdata, app_ingress_unidata)
     return mess_app_ingress_data
+
+
+def get_post_app_health(session):
+    # Get Application post nvfis deployment health score
+    uuu = session.get("/api/node/mo/uni/tn-" + ttt + "/ap-3Tier_App/health.json")
+    page = json.loads(uuu.content)
+    post_app_healthscore = page["imdata"][0]["healthInst"]['attributes']['twScore']
+    mess_post_app_healthscore = "Gadd Application health after FW deployment: {}".format(post_app_healthscore)
+    return mess_post_app_healthscore
