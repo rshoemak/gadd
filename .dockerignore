@@ -8,4 +8,6 @@ TESTFILE.txt
 nfvis_data.py
 tests
 archive
+gadd_setup_basic_template.sh
+gadd_dock_env_template
 

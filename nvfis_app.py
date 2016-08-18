@@ -9,7 +9,7 @@ import sparky
 import acitoolkit.acitoolkit as aci
 import aci_data
 import nfvis_data
-import time
+# import time
 
 
 # Main Program
@@ -28,6 +28,7 @@ def test_nvfis(ss):
     # return resp
     # resp = page.content  #open format print out for reference
 '''
+
 
 def do_message_(mess):
     sparky.send_alert(alert_room_id, mess)
@@ -82,5 +83,5 @@ if __name__ == '__main__':
 
     # Need ability to wait for response 'ack' from NFVis deployment. Add sleep for now.
     aci_post_health = aci_data.get_post_app_health(session)
-    #time.sleep(3)
+    # time.sleep(3)
     do_message_(aci_post_health)

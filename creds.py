@@ -10,7 +10,7 @@ tk_inp = os.getenv('TOKEN_INPUT')
 aur_inp = os.getenv('APIC_URL_INPUT')
 alg_inp = os.getenv('APIC_LOGIN_INPUT')
 aps_inp = os.getenv('APIC_PASSWRD_INPUT')
-nlg_inp =  os.getenv("NFVIS_LOGIN_INPUT")
+nlg_inp = os.getenv("NFVIS_LOGIN_INPUT")
 nps_inp = os.getenv("NFVIS_PASSWRD_INPUT")
 nurl_inp = os.getenv("NFVIS_URL_INPUT")
 

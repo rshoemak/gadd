@@ -6,18 +6,18 @@ tk_inp = os.getenv('TOKEN_INPUT')
 aur_inp = os.getenv('APIC_URL_INPUT')
 alg_inp = os.getenv('APIC_LOGIN_INPUT')
 aps_inp = os.getenv('APIC_PASSWRD_INPUT')
-nlg_inp =  os.getenv("NFVIS_LOGIN_INPUT")
+nlg_inp = os.getenv("NFVIS_LOGIN_INPUT")
 nps_inp = os.getenv("NFVIS_PASSWRD_INPUT")
 nurl_inp = os.getenv("NFVIS_URL_INPUT")
 
 
-#nlg_inp = "admin"
-#nps_inp = "admin"
-#nurl_inp = "https://10.91.13.154"
-#tk_inp = "Bearer Y2VkYjBlYTgtMTNiYy00YWQ2LThmMWYtZDljNWE4ODZjZDI4ZTIyM2I2OTktMDRm"
-#aur_inp = "http://10.91.86.180"
-#alg_inp = "chet"
-#aps_inp = "9letmein"
+# nlg_inp = "admin"
+# nps_inp = "admin"
+# nurl_inp = "https://10.91.13.154"
+# tk_inp = "Bearer Y2VkYjBlYTgtMTNiYy00YWQ2LThmMWYtZDljNWE4ODZjZDI4ZTIyM2I2OTktMDRm"
+# aur_inp = "http://10.91.86.180"
+# alg_inp = "chet"
+# aps_inp = "9letmein"
 
 
 def nvfis_getgcred():
@@ -64,10 +64,7 @@ class HelperFunctionTests(unittest.TestCase):
         test = apic_GetArgs()
         self.assertIsInstance(test, tuple)
 
-
 x = nvfis_getgcred()
 print type(x)
 print x
 unittest.main()
-
-
