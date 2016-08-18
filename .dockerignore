@@ -5,11 +5,7 @@ tar-test.py
 tarfile_add.tar
 TESTFILE.txt
 .drone.sec
-ui/aciprerun.php
 nfvis_data.py
 tests
 archive
-ui/gophp
-uiacidata.py
-uiacipredata.py
-uiacipostdata.py
+
