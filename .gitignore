@@ -11,3 +11,4 @@ tests
 ui/gophp
 uiacipredata.py
 uiacipostdata.py
+gadd_setup_basic_template.sh
