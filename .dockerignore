@@ -5,9 +5,9 @@ tar-test.py
 tarfile_add.tar
 TESTFILE.txt
 .drone.sec
-nfvis_data.py
 tests
 archive
 gadd_setup_basic_template.sh
 gadd_dock_env_template
+.gitignore
 

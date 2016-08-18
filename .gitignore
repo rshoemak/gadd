@@ -6,7 +6,6 @@ archive
 gadd_setup_lab.sh
 my_env
 drone_secrets.yml
-nfvis_data.py
 tests
 ui/gophp
 uiacipredata.py
