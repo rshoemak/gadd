@@ -9,25 +9,11 @@ import sparky
 import acitoolkit.acitoolkit as aci
 import aci_data
 import nfvis_data
+import message_board
 # import time
 
-
 # Main Program
-'''
-# Test login functionality - get images
-def test_nvfis(ss):
-    message = "Logged into NFVis and looking at images"
-    u = url + "/api/config/esc_datamodel/images"
-    page = ss.get(u)
-    img = json.loads(page.content)
-    do_message_(message)
-    return img
-    # stuff to work with parsing
-    # resp = img['images']['image']
-    # resp = page.json()
-    # return resp
-    # resp = page.content  #open format print out for reference
-'''
+
 new_bridge ="connie"
 
 def do_message_(mess):
