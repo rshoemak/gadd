@@ -107,7 +107,7 @@ def nfv_assign_port_lanbridge(s, url, br_name):
     print asgn_lanbridge_data
 
 
-# verify lan bridges
+# verify lan bridges - ok
 def nfv_verify_lanbridge(s, url, deep_key):
     if deep_key:
         u = url + "/api/config/bridges?deep"
@@ -145,9 +145,8 @@ def deploy_asa(s, url):
     print r_deploy_asa_page
 
 
-# verify deployment status - not working but hard to test... error status 404
-# need new hearders. application./vnd.collection
-def verify_asa_deployment(s, url, device, deep_key):
+# verify deployment status - ok
+def nfv_verify_asa_deployment(s, url, device, deep_key):
     if deep_key:
         u = url + '/api/operational/esc_datamodel/opdata/tenants/tenant/admin/deployments/{},-,-?deep'.format(device)
     else:

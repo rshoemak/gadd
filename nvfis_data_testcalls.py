@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
     #nfvis_data_testfunctions.nfv_verify_networks(s, url, deep_key=False)
 
-    nfvis_data_testfunctions.verify_asa_deployment(s, url, device, deep_key=True)
+    nfvis_data_testfunctions.nfv_verify_asa_deployment(s, url, device, deep_key=True)
 
 
     do_message_(message_board.nfv_assigned_port_lanbrdige)
