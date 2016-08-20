@@ -12,5 +12,4 @@ uiacipredata.py
 uiacipostdata.py
 gadd_setup_basic_template.sh
 gadd_dock_env_template
-nvfis_data_testcalls.py
-nfvis_data_testfunctions.py
+
