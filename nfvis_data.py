@@ -1,6 +1,6 @@
 
 import json
-# import requests
+import requests
 
 
 # adding test to see if we want to build a separate file for nvfis_data or make it part of main...
@@ -34,6 +34,7 @@ def verify_vmimage_nvfis(s, url):
     vm_image_page = s.get(u)
     r_vm_image_page = json.loads(vm_image_page.content)
     print r_vm_image_page
+
 
 
 def get_image_config(s, url):
@@ -95,3 +96,4 @@ def verify_asa_deployment(s, url):
 
 def service_chain_csr_asa(s, url):
     pass
+
