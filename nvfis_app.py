@@ -28,7 +28,7 @@ def test_nvfis(ss):
     # return resp
     # resp = page.content  #open format print out for reference
 '''
-
+new_bridge ="connie"
 
 def do_message_(mess):
     sparky.send_alert(alert_room_id, mess)
@@ -85,3 +85,19 @@ if __name__ == '__main__':
     aci_post_health = aci_data.get_post_app_health(session)
     # time.sleep(3)
     do_message_(aci_post_health)
+
+    # Creating generic functions for NFVIS
+    print " verify vm image"
+    nfvis_data.verify_vmimage_nvfis(s, url)
+    print "image config"
+    nfvis_data.get_image_config(s, url)
+    print "verify port lan bridge"
+    nfvis_data.verify_port_lan_bridge(s, url)
+    print "networks"
+    nfvis_data.verify_networks(s, url)
+    print "asa deployment"
+    nfvis_data.verify_asa_deployment(s, url)
+
+    #Create NFVIS stuff
+    # nfvis_data.reg_vmimage_nvfis(s, url)
+    nfvis_data.create_new_bridge(s, url, new_bridge)
