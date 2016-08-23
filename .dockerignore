@@ -12,3 +12,4 @@ gadd_dock_env_template
 .gitignore
 nvfis_data_testcalls.py
 nfvis_data_testfunctions.py
+gadd_dock_env

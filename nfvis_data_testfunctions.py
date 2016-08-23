@@ -24,12 +24,12 @@ def test_nvfis(s, url):
 def nfv_register_vm_img(s, url, img):
     img_name = "an_image_name" # place holder,
     file_path = 'file://full_path/{}'.format(img)
-    print file_path
+    #print file_path
     u = url + "/api/config/esc_datamodel/images"
-    vm_reg_data = '{\"image\": {\"name\": "%s", \"src\": "%s" }}' % (img_name, file_path)
-    #r_reg_vm_images = s.post(u, data=vm_reg_data)
-    #print r_reg_vm_images
-    print vm_reg_data
+    vm_reg_data = '{"image": {"name": "%s", "src": "%s" }}' % (img_name, file_path)
+    r_reg_vm_images = s.post(u, data=vm_reg_data)
+    print r_reg_vm_images
+    #print vm_reg_data
 
 
 # Verify VM images status -ok
@@ -99,9 +99,9 @@ def nfv_view_vm_cfg(s, url):
 
 # Assign a port to a LAN Bridge - ok
 def nfv_assign_port_lanbridge(s, url, br_name):
-    prt ="e33"
+    prt ="e33" # static for now, do we make this dynamic
     u = url + "/api/config/bridges/bridge/lan-br"
-    asgn_lanbridge_data = '{\"bridge\": {\"name\": "%s", \"port\": "%s" }}' % (br_name, prt)
+    asgn_lanbridge_data = '{"bridge": {"name": "%s", "port": "%s" }}' % (br_name, prt)
     #r_asgn_lanbridge_page = s.put(u, data=asgn_lanbridge_data)
     #print r_asgn_lanbridge_page
     print asgn_lanbridge_data
@@ -120,10 +120,17 @@ def nfv_verify_lanbridge(s, url, deep_key):
 # create new bridge - ok
 def nfv_create_newbridge(s, url, new_bridge):
     u = url + "/api/config/bridges"
-    make_bridge_payload = '{ \"bridge\": {\"name\": "%s" }}' % (new_bridge)
+    make_bridge_payload = '{ "bridge": {"name": "%s" }}' % (new_bridge)
     r_create_bridge = s.post(u, data=make_bridge_payload)
     print r_create_bridge
     # print make_bridge_payload
+
+# Create new network and map bridge to network
+def nfv_create_new_network(s, url, new_network, new_bridge):
+    u = url + "/api/config/networks"
+    createnet_payload = '{ "network": {"name": "%s" , "bridge": "%s" }}' %(new_network, new_bridge)
+    r_create_net = s.post(u, data=createnet_payload)
+    print r_create_net
 
 
 # verify networks - ok
@@ -138,7 +145,7 @@ def nfv_verify_networks(s, url, deep_key):
 
 
 # deploy asa
-def deploy_asa(s, url):
+def nfv_deploy_asa(s, url):
     u = url + "/api/config/esc_datamodel/tenants/tenant/admin/deployments"
     asa_config_data = {}
     r_deploy_asa_page = s.post(u, data=asa_config_data)
@@ -150,9 +157,11 @@ def nfv_verify_asa_deployment(s, url, device, deep_key):
     if deep_key:
         u = url + '/api/operational/esc_datamodel/opdata/tenants/tenant/admin/deployments/{},-,-?deep'.format(device)
     else:
+        # get all devices
         s.headers = ({'Content-type': 'application/vnd.yang.data+json',
                       'Accept': 'application/vnd.yang.collection+json'})
-        u = url + '/api/operational/esc_datamodel/opdata/tenants/tenant/admin/deployments'.format(device)
+        u = url + '/api/operational/esc_datamodel/opdata/tenants/tenant/admin/deployments/'
+        print u
     asa_deployment_page = s.get(u)
     r_asa_deployment_page = json.loads(asa_deployment_page.content)
     print r_asa_deployment_page

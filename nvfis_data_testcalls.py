@@ -67,11 +67,11 @@ if __name__ == '__main__':
 
     #nfvis_data_testfunctions.nfv_verify_networks(s, url, deep_key=False)
 
-    nfvis_data_testfunctions.nfv_verify_asa_deployment(s, url, device, deep_key=True)
+    nfvis_data_testfunctions.nfv_verify_asa_deployment(s, url, device, deep_key=False)
 
 
-    do_message_(message_board.nfv_assigned_port_lanbrdige)
-    do_message_(message_board.nfv_created_lanbridge)
+    #do_message_(message_board.nfv_assigned_port_lanbrdige)
+    #do_message_(message_board.nfv_created_lanbridge)
 
 
 
@@ -87,7 +87,7 @@ if __name__ == '__main__':
 
     #nfvis_data.create_new_bridge(s, url, new_bridge)
 
-    #print "Testing nested stuff"
+    print "Testing nested stuff\n"
     #nfvis_data_testfunctions.testing_nested_dict()
 
 
