@@ -14,6 +14,9 @@ import nfvis_data_testfunctions
 import message_board
 
 
+
+
+
 # Main Program
 
 # Message Board
@@ -42,7 +45,7 @@ if __name__ == '__main__':
 
     # Create room if not already created.
     # Add in additional members manually. To do - add in automatically
-    alert_room_id = sparky.setup_room()
+    #alert_room_id = sparky.setup_room()
 
     # Test NFVis login functionality
     #r_imgs, r_message = nfvis_data.test_nvfis(s, url)
@@ -67,8 +70,12 @@ if __name__ == '__main__':
 
     #nfvis_data_testfunctions.nfv_verify_networks(s, url, deep_key=False)
 
-    nfvis_data_testfunctions.nfv_verify_asa_deployment(s, url, device, deep_key=False)
-
+    #nfvis_data_testfunctions.nfv_verify_asa_deployment(s, url, device, deep_key=False)
+    print 150 * "#"
+    #nfvis_data_testfunctions.nfv_prune_name(s, url)
+    print 150 * "#"
+    #nfvis_data_testfunctions.nfv_get_config_info(s, url)
+    nfvis_data_testfunctions.nfv_test_filejson_payload(s, url)
 
     #do_message_(message_board.nfv_assigned_port_lanbrdige)
     #do_message_(message_board.nfv_created_lanbridge)
@@ -89,6 +96,8 @@ if __name__ == '__main__':
 
     print "Testing nested stuff\n"
     #nfvis_data_testfunctions.testing_nested_dict()
+
+    #nfvis_data_testfunctions.nfv_get_name_id(s, url)
 
 
 

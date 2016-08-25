@@ -1,5 +1,6 @@
 
 import json
+from pprint import pprint
 # import requests
 
 
@@ -96,6 +97,16 @@ def nfv_view_vm_cfg(s, url):
     r_vm_image_config_page = json.loads(vm_image_config_page.content)
     print r_vm_image_config_page
 
+# Getting config info - flavor, lan_ip.
+def nfv_get_config_info(s, url):
+    s.headers = ({'Content-type': 'application/vnd.yang.data+json', 'Accept': 'application/vnd.yang.data+json'})
+    u = url + "/api/config/esc_datamodel/tenants/tenant/admin/deployments?deep"
+    config_info_page = s.get(u)
+    r_config_info_page = json.loads(config_info_page.content)
+    pprint(r_config_info_page)
+
+
+
 
 # Assign a port to a LAN Bridge - ok
 def nfv_assign_port_lanbridge(s, url, br_name):
@@ -164,7 +175,55 @@ def nfv_verify_asa_deployment(s, url, device, deep_key):
         print u
     asa_deployment_page = s.get(u)
     r_asa_deployment_page = json.loads(asa_deployment_page.content)
-    print r_asa_deployment_page
+    #pprint(r_asa_deployment_page)
+    return r_asa_deployment_page
+
+def nfv_get_name_id(s, url):
+    u = url + '/api/operational/esc_datamodel/opdata/tenants/tenant/admin/deployments'
+    deploy_info = s.get(u)
+    print deploy_info
+    #r_deploy_info = json.loads(deploy_info.content)
+    #print r_deploy_info
+
+# Prune name and name_id
+
+def nfv_prune_name(s, url):
+    dd = nfv_verify_asa_deployment(s, url, device=False, deep_key=False)
+    print type(dd)
+    pprint(dd)
+
+    dev_name_id = ""
+    dev_name = ""
+
+    # get values
+    for ix in dd.values():
+        got_lsta = ix['esc:deployments']
+        ix_lstb = [x['vm_group'][0] for x in got_lsta]
+        print ix_lstb
+        print type(ix_lstb)
+        ix_lstc = [y['name'] for y in ix_lstb]
+        dev_name = ix_lstc[0]
+
+        if dev_name == "ROUTER":
+            dev_name_src = [x['deployment_name'] for x in got_lsta]
+            dev_name_id = dev_name_src[0]
+
+    print dev_name + " " + dev_name_id
+
+
+def nfv_test_filejson_payload(s, url):
+    u = url
+    with open('output.json', 'rb') as payload:
+        r_deploy_asa_page = s.post(u, data=payload)
+        print r_deploy_asa_page  # this shoul provide the status I think.
+        return
+
+
+
+
+
+
+
 
 
 def service_chain_csr_asa(s, url):

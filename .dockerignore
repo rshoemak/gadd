@@ -13,3 +13,5 @@ gadd_dock_env_template
 nvfis_data_testcalls.py
 nfvis_data_testfunctions.py
 gadd_dock_env
+output.json
+nfv-queries.py
