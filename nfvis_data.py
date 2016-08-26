@@ -183,7 +183,7 @@ def nfv_create_newbridge(s, url, new_bridge):
     u = url + "/api/config/bridges"
     make_bridge_payload = '{ "bridge": {"name": "%s" }}' % new_bridge
     r_create_bridge = s.post(u, data=make_bridge_payload)
-    return r_create_bridge  # do we need to return r_create_bridge or just do a return?
+    return r_create_bridge
 
 
 # Create new network and map to lan bridge
@@ -192,3 +192,16 @@ def nfv_create_new_network(s, url, new_network, new_bridge):
     createnet_payload = '{ "network": {"name": "%s" , "bridge": "%s" }}' % (new_network, new_bridge)
     r_create_net = s.post(u, data=createnet_payload)
     return r_create_net     # do we need to return r_create_net of just do a return?
+
+
+# deploy asa
+def nfv_deploy_asa(s, url, r_created_input_cfg):
+    u = url + "/api/config/esc_datamodel/tenants/tenant/admin/deployments"
+    with open(r_created_input_cfg,'rb') as asa_config_data:
+        r_deploy_asa_page = s.post(u, data=asa_config_data)
+        find_code = r_deploy_asa_page.find('2')
+        status_resp = r_deploy_asa_page[find_code:find_code + 3]
+    if status_resp == "200":
+        return True
+    else:
+        return False

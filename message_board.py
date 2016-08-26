@@ -9,4 +9,6 @@ nfv_created_net_and_mapped = "\nNFV - created new network and mapped to lan brid
 nfv_net_map_failed = "\nNFV - could NOT create network and map to lan bridge"
 nfv_input_cfg_failed = "\nNFV - could NOT create INPUT config"
 nfv_creating_cfg = "\nNFV - Creating config files for ASA"
+nfv_asa_deployment_success = "\nNFV - ASA Deployment Successful!"
+nfv_asa_deployment_failed = "\nNFV - ASA deployment failed"
 liner = 20 * '_'

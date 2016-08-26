@@ -57,6 +57,6 @@ def create_device_cfg(r_asa_flavor, new_network, r_bvi_gw, r_bvi_ip):
     fout.write(output)
     fout.close()
     if len(day_zero_cfg) > 0:
-        return True
+        return day_zero_cfg
     else:
         return False

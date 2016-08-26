@@ -96,16 +96,16 @@ if __name__ == '__main__':
         print "%% Could NOT get ASA flavor"
         sys.exit(0)
 
-    '''
     # Step 5:  Create LAN Bridge
     r_create_lanbridge = nfvis_data.nfv_create_newbridge(s, url, new_bridge)
-    if r_create_lanbridge:  # What will be the code or do we need to do a verify functions?
+    if r_create_lanbridge:
         do_message_(message_board.nfv_created_lanbridge)
     else:
         print "%% Could NOT create lan bridge"
         do_message_(message_board.nfv_lanbridge_failed)
         sys.exit(0)
 
+    '''
     # Step 6:  Create new network and map to lan bridge
     r_create_net = nfvis_data.nfv_create_new_network(s, url, new_network, new_bridge)
     if r_create_net:    # What will be the code or do we need to do a verify functions?
@@ -119,14 +119,22 @@ if __name__ == '__main__':
     # Step 7:  Create json payload to instantiate device
     r_created_input_cfg = create_device_input_config.create_device_cfg(r_asa_flavor, new_network, r_bvi_gw, r_bvi_ip)
     if r_created_input_cfg:
+        print r_created_input_cfg
         do_message_(message_board.nfv_creating_cfg)
     if not r_created_input_cfg:
         print "%% Could NOT create INPUT config"
         do_message_(message_board.nfv_input_cfg_failed)
         sys.exit(0)
 
+    '''
     # Step 8:  Deployment
-    # Do something...
+    r_status_resp = nfvis_data.nfv_deploy_asa(s, url, r_created_input_cfg)
+    if r_status_resp:
+        do_message_(message_board.nfv_asa_deployment_success)
+    else:
+        do_message_(message_board.nfv_asa_deployment_failed)
+    '''
+
 
     # Need ability to wait for response 'ack' from NFVis deployment. Add sleep timer?.
     aci_post_health = aci_data.get_post_app_health(session)
