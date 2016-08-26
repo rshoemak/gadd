@@ -1,6 +1,5 @@
 
 import json
-import requests
 from pprint import pprint
 
 # Probably can delete these older functions. keep for reference for a while
@@ -111,19 +110,9 @@ def nfv_prune_name(s, url):
     dev_name = ""
 
     for ix in dd.values():
-        #got_lsta = ix['esc:deployments']
-        #ix_lstb = [x['vm_group'][0] for x in got_lsta]
         dev_name = ix['esc:deployments'][0]['vm_group'][0]['name']
-        #print got_lsta
-        #dev_name = got_lsta[0]['name']
-        #print dev_name
-        #got_lstc = ix['esc:deployments'][0]['deployment_name']
-        #print got_lstc
-        #ix_lstc = [y['name'] for y in ix_lstb]
-        #dev_name = ix_lstc[0]
+
         if dev_name == "ROUTER":    # Need to assume CSR's have some default name convention. Needs work...
-            #dev_name_src = [x['deployment_name'] for x in got_lsta]
-            #dev_name_id = dev_name_src[0]
             dev_name_id = ix['esc:deployments'][0]['deployment_name']
 
     # Could use some error checking here - to_do...
@@ -147,7 +136,6 @@ def nfv_prune_bvi_ip(s, url, device_id):
         lan_ip_tmp = bvi_gw.split('.')
         bvi_ip = lan_ip_tmp[0] + '.' + lan_ip_tmp[1] + '.' + lan_ip_tmp[2] + '.' + "2"
     return bvi_ip, bvi_gw
-
 
 
 def get_vm_cfg(s, url, dev_id):
@@ -201,9 +189,6 @@ def nfv_create_newbridge(s, url, new_bridge):
 # Create new network and map to lan bridge
 def nfv_create_new_network(s, url, new_network, new_bridge):
     u = url + "/api/config/networks"
-    createnet_payload = '{ "network": {"name": "%s" , "bridge": "%s" }}' %(new_network, new_bridge)
+    createnet_payload = '{ "network": {"name": "%s" , "bridge": "%s" }}' % (new_network, new_bridge)
     r_create_net = s.post(u, data=createnet_payload)
     return r_create_net     # do we need to return r_create_net of just do a return?
-
-
-

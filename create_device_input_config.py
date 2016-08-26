@@ -19,7 +19,7 @@ device = dict()
 device["$ASAv_IMAGE"] = ASAv_IMAGE_INPUT    # ok
 device["$DEV_NAME_DERV_CSR"] = DEV_NAME_DERV_CSR_INPUT  # ok
 device["$MGMT_IP"] = MGMT_IP_INPUT  # ok
-device["$MGMT_MASK"] = MGMT_MASK_INPUT # ok
+device["$MGMT_MASK"] = MGMT_MASK_INPUT  # ok
 device["$BVI_MASK"] = BVI_MASK_INPUT    # ok
 device["$SSH_USERNAME"] = SSH_USERNAME_INPUT    # ok
 device["$SSH_PASSWORD"] = SSH_PASSWORD_INPUT    # ok
@@ -60,4 +60,3 @@ def create_device_cfg(r_asa_flavor, new_network, r_bvi_gw, r_bvi_ip):
         return True
     else:
         return False
-

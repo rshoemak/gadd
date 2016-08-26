@@ -10,8 +10,6 @@ import nfvis_data
 import message_board
 import create_device_input_config
 
-
-
 # Main Program
 
 new_bridge = "svc-gadd-br"      # Statically assigned for Phase 1 or will we make dynamic?
@@ -62,16 +60,14 @@ if __name__ == '__main__':
 # ####################  -- APIC SECTION --  ####################
 
     # ACI metric calls
+    do_message_(message_board.liner)
     aci_app_health = aci_data.get_overall_app_health(session)
     do_message_(aci_app_health)
     aci_egress_data = aci_data.get_egress_app_data(session)
     do_message_(aci_egress_data)
     aci_ingress_data = aci_data.get_ingress_app_data(session)
     do_message_(aci_ingress_data)
-
-    # Need ability to wait for response 'ack' from NFVis deployment. Add sleep timer?.
-    aci_post_health = aci_data.get_post_app_health(session)
-    do_message_(aci_post_health)
+    do_message_(message_board.liner)
 
 
 # ####################  -- NFV SECTION --   ####################
@@ -100,8 +96,6 @@ if __name__ == '__main__':
         print "%% Could NOT get ASA flavor"
         sys.exit(0)
 
-
-
     '''
     # Step 5:  Create LAN Bridge
     r_create_lanbridge = nfvis_data.nfv_create_newbridge(s, url, new_bridge)
@@ -124,6 +118,8 @@ if __name__ == '__main__':
 
     # Step 7:  Create json payload to instantiate device
     r_created_input_cfg = create_device_input_config.create_device_cfg(r_asa_flavor, new_network, r_bvi_gw, r_bvi_ip)
+    if r_created_input_cfg:
+        do_message_(message_board.nfv_creating_cfg)
     if not r_created_input_cfg:
         print "%% Could NOT create INPUT config"
         do_message_(message_board.nfv_input_cfg_failed)
@@ -132,3 +128,7 @@ if __name__ == '__main__':
     # Step 8:  Deployment
     # Do something...
 
+    # Need ability to wait for response 'ack' from NFVis deployment. Add sleep timer?.
+    aci_post_health = aci_data.get_post_app_health(session)
+    do_message_(message_board.liner)
+    do_message_(aci_post_health)
