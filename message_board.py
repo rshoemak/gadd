@@ -3,5 +3,9 @@
 # Creating a message board
 
 nfv_created_lanbridge = "\nNFV created Lan Bridge"
-nfv_assigned_port_lanbrdige = "\nNFV assigned port to Lan Bridge"
+nfv_lanbridge_failed = "\nNFV could NOT create Lan Bridge"
+nfv_created_net_and_mapped = "\nNFV created new network and mapped to lan bridge"
+nfv_net_map_failed = "\nNFV could NOT create network and map to lan bridge"
+nfv_day0_cfg_failed = "\nNFV could NOT create day0 config"
+
 

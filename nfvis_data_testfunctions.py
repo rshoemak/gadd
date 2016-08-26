@@ -211,6 +211,8 @@ def nfv_prune_name(s, url):
     print dev_name + " " + dev_name_id
 
 
+
+
 def nfv_test_filejson_payload(s, url):
     u = url
     with open('output.json', 'rb') as payload:
