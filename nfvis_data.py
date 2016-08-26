@@ -3,7 +3,8 @@ import json
 import requests
 from pprint import pprint
 
-
+# Probably can delete these older functions. keep for reference for a while
+'''
 # Registering VM images
 def old_nfv_reg_vmimage_nvfis(s, url):
     # r_message = "Posting an image"
@@ -79,6 +80,7 @@ def old_nfv_verify_asa_deployment(s, url):
     asa_deployment_page = s.get(u)
     r_asa_deployment_page = json.loads(asa_deployment_page.content)
     print r_asa_deployment_page
+'''
 
 
 # ###################   -- Build new functions here --  ####################
