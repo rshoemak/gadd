@@ -4,7 +4,7 @@
     "vm_group": {
       "name": "ASAv",
       "image": "$ASAv_IMAGE",
-      "flavor": "$ASAv10_FLAVOR",
+      "flavor": "$ASA_FLAVOR",
       "bootup_time": "-1",
       "recovery_wait_time": "0",
       "recovery_policy": { "action_on_recovery": "REBOOT_ONLY" },
@@ -16,11 +16,11 @@
           },
           {
             "nicid": "1",
-            "network": "$WAN_NET"
+            "network": "$NEW_NETWORK"
           },
           {
             "nicid": "2",
-            "network": "$LAN_NET"
+            "network": "lan-net"
           }
         ]
       },
@@ -64,24 +64,40 @@
               "val": "$DEV_NAME_DERV_CSR"
             },
             {
-              "name": "DOMAIN",
-              "val": "$DOM_NAME"
+              "name": "VNF_MGMT_NAME",
+              "val": "management"
             },
             {
-              "name": "MGMT_IP_ADDRESS",
+              "name": "MGMT_IP",
               "val": "$MGT_IP_ADDRESS"
             },
             {
-              "name": "MGMT_IP_MASK",
-              "val": "$MGT_IP_MASK"
+              "name": "MGMT_MASK",
+              "val": "$MGMT_MASK"
             },
             {
-              "name": "OUTSIDE_INT_IP_ADDRESS",
-              "val": "$ASA_OUT_INT_IP"
+              "name": "BVI_IP",
+              "val": "$BVI_IP"
             },
             {
-              "name": "OUTSIDE_INT_IP_MASK",
-              "val": "$ASA_OUT_INT_MASK"
+              "name": "BVI_MASK",
+              "val": "$BVI_MASK"
+            },
+            {
+              "name": "SSH_USERNAME",
+              "val": "$SSH_USERNAME"
+            },
+            {
+              "name": "SSH_PASSWORD",
+              "val": "$SSH_PASSWORD"
+            },
+            {
+              "name": "VNF_MGMT_GW",
+              "val": "$VNF_MGMT_GW"
+            },
+            {
+              "name": "BVI_GW",
+              "val": "$BVI_GW"
             }
           ]
         }

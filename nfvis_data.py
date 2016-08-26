@@ -129,22 +129,22 @@ def nfv_prune_name(s, url):
 
 
 # Get LAN IP - ok
-def nfv_prune_lan_ip(s, url, device_id):
+def nfv_prune_bvi_ip(s, url, device_id):
     data = nfv_verify_device_deployment(s, url, device=device_id, deep_key=True)
 
-    lan_gw = ""
+    bvi_gw = ""
     lan_net = ""
-    lan_ip = ""
+    bvi_ip = ""
 
     for ix in data.values():
         got_lsta = ix['vm_group'][0]['vm_instance'][0]['interfaces']['interface']
-        lan_gw = got_lsta[2]['gateway']
+        bvi_gw = got_lsta[2]['gateway']
         lan_net = got_lsta[2]['network']
 
     if 'lan' in lan_net:
-        lan_ip_tmp = lan_gw.split('.')
-        lan_ip = lan_ip_tmp[0] + '.' + lan_ip_tmp[1] + '.' + lan_ip_tmp[2] + '.' + "2"
-    return lan_ip
+        lan_ip_tmp = bvi_gw.split('.')
+        bvi_ip = lan_ip_tmp[0] + '.' + lan_ip_tmp[1] + '.' + lan_ip_tmp[2] + '.' + "2"
+    return bvi_ip, bvi_gw
 
 
 
@@ -173,6 +173,17 @@ def nfv_prune_flavor(s, url, dev_id):
             got_lstb = [x['flavor'] for x in got_lsta]
             flavor = got_lstb[0]
         return flavor
+    else:
+        return False
+
+
+def nfv_get_asa_flavor(r_flavor):
+    if 'large' in r_flavor:
+        return "ASAv30"
+    elif 'medium' in r_flavor:
+        return "ASAv10"
+    elif 'small' in r_flavor:
+        return "ASAv5"
     else:
         return False
 
