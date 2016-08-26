@@ -1,0 +1,91 @@
+{
+  "deployment": {
+    "name": "ASAv",
+    "vm_group": {
+      "name": "ASAv",
+      "image": "Chet-asa-image",
+      "flavor": "Chet-asav10-flavor",
+      "bootup_time": "-1",
+      "recovery_wait_time": "0",
+      "recovery_policy": { "action_on_recovery": "REBOOT_ONLY" },
+      "interfaces": {
+        "interface": [
+          {
+            "nicid": "0",
+            "network": "mgmt-net"
+          },
+          {
+            "nicid": "1",
+            "network": "10.100.3.3"
+          },
+          {
+            "nicid": "2",
+            "network": "10.100.40.2"
+          }
+        ]
+      },
+      "scaling": {
+        "min_active": "1",
+        "max_active": "1"
+      },
+      "kpi_data": {
+        "kpi": {
+          "event_name": "VM_ALIVE",
+          "metric_value": "1",
+          "metric_cond": "GT",
+          "metric_type": "UINT32",
+          "metric_collector": {
+            "type": "ICMPPing",
+            "nicid": "0",
+            "poll_frequency": "3",
+            "polling_unit": "seconds",
+            "continuous_alarm": "false"
+          }
+        }
+      },
+      "rules": {
+        "admin_rules": {
+          "rule": {
+            "event_name": "VM_ALIVE",
+            "action": [
+              "ALWAYS log",
+              "TRUE servicebooted.sh",
+              "FALSE recover autohealing"
+            ]
+          }
+        }
+      },
+      "config_data": {
+        "configuration": {
+          "dst": "bootstrap_config",
+          "variable": [
+            {
+              "name": "HOSTNAME",
+              "val": "Chet-CSR-ASA"
+            },
+            {
+              "name": "DOMAIN",
+              "val": "chet.com"
+            },
+            {
+              "name": "MGMT_IP_ADDRESS",
+              "val": "20.20.20.1"
+            },
+            {
+              "name": "MGMT_IP_MASK",
+              "val": "255.255.255.128"
+            },
+            {
+              "name": "OUTSIDE_INT_IP_ADDRESS",
+              "val": "10.100.40.10"
+            },
+            {
+              "name": "OUTSIDE_INT_IP_MASK",
+              "val": "255.255.255.0"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

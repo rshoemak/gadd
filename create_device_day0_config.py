@@ -1,14 +1,5 @@
 #!/usr/bin/env python
 
-# wonder if this makes sense?
-'''
-device_values = {
-    '$hostname': 'overlaid-router',
-    '$ip': '169.254.66.6',
-    '$answer': 'yes'
-}
-'''
-
 
 # Creata static content for Phase 1 - Ryan TBD?
 
@@ -64,5 +55,8 @@ def create_device_cfg(create_asa_name):
     fout = open(day_zero_cfg, 'w')
     fout.write(output)
     fout.close()
-    return
+    if len(day_zero_cfg) > 0:
+        return True
+    else:
+        return False
 

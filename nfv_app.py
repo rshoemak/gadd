@@ -16,10 +16,11 @@ import create_device_day0_config
 
 new_bridge = "svc-gadd-br"  # Statically assigned for Phase 1 or will we make dynamic?
 new_network = ""            # Statically assigned for Phase 1 or will we make dynamic?
-# img = "chet-asav941-203"  # Delete?
-# device = "1471415647"     # Delete?
 deep_key = False
 create_asa_name = "myasa"   # Statically create an ASA name for Phase 1 or will we make dynamic?
+r_lan_ip = ""
+device_name = ""
+dev_id = ""
 
 
 def do_message_(mess):
@@ -74,20 +75,22 @@ if __name__ == '__main__':
 
 # ####################  -- NFV SECTION --   ####################
 
-    # Need some variables to move info around?
-    device_name = ""
-    device_name_id = ""
-
     # Step 1: Get CSR device name and device_name_id
-    dev_name, dev_name_id = nfvis_data.nfv_prune_name(s, url)
+    dev_name, dev_id = nfvis_data.nfv_prune_name(s, url)
 
     # Step 2: Get LAN IP of CSR
-    # To_Do:  Need to build function in nfvis_data.py
+    r_lan_ip = nfvis_data.nfv_prune_lan_ip(s, url, dev_id)
 
     # Step 3: Get image flavor
-    # To_Do:  Need to build function in nfvis_data.py
-    nfvis_data.nfv_prune_flavor(s, url, device_name_id)
+    r_flavor = nfvis_data.nfv_prune_flavor(s, url, dev_id)
+    if r_flavor:
+        print "FLAVOR: %s    LAN_IP: %s    DEV_NAME: %s    DEV_ID: %s" % (r_flavor, r_lan_ip, dev_name, dev_id)
+        do_message_(message_board.nfv_gather_basics)
+    else:
+        print "Could NOT gather data on NFVIS device"
+        sys.exit(0)
 
+    '''
     # Step 4:  Create LAN Bridge
     r_create_lanbridge = nfvis_data.nfv_create_newbridge(s, url, new_bridge)
     if r_create_lanbridge:  # What will be the code or do we need to do a verify functions?
@@ -105,8 +108,9 @@ if __name__ == '__main__':
         print "%% Could NOT create network and map to lan bridge"
         do_message_(message_board.nfv_net_map_failed)
         sys.exit(0)
+    '''
 
-    # Step 6:  Create json payload to instansiate device
+    # Step 6:  Create json payload to instantiate device
     r_created_day0_cfg = create_device_day0_config.create_device_cfg(create_asa_name)
     if not r_created_day0_cfg:
         print "%% Could NOT create day 0 config"
@@ -115,3 +119,4 @@ if __name__ == '__main__':
 
     # Step 7:  Deployment
     # Do something...
+

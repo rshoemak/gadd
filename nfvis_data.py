@@ -1,6 +1,7 @@
 
 import json
 import requests
+from pprint import pprint
 
 
 # Registering VM images
@@ -108,23 +109,72 @@ def nfv_prune_name(s, url):
     dev_name = ""
 
     for ix in dd.values():
-        got_lsta = ix['esc:deployments']
-        ix_lstb = [x['vm_group'][0] for x in got_lsta]
-        ix_lstc = [y['name'] for y in ix_lstb]
-        dev_name = ix_lstc[0]
-
+        #got_lsta = ix['esc:deployments']
+        #ix_lstb = [x['vm_group'][0] for x in got_lsta]
+        dev_name = ix['esc:deployments'][0]['vm_group'][0]['name']
+        #print got_lsta
+        #dev_name = got_lsta[0]['name']
+        #print dev_name
+        #got_lstc = ix['esc:deployments'][0]['deployment_name']
+        #print got_lstc
+        #ix_lstc = [y['name'] for y in ix_lstb]
+        #dev_name = ix_lstc[0]
         if dev_name == "ROUTER":    # Need to assume CSR's have some default name convention. Needs work...
-            dev_name_src = [x['deployment_name'] for x in got_lsta]
-            dev_name_id = dev_name_src[0]
+            #dev_name_src = [x['deployment_name'] for x in got_lsta]
+            #dev_name_id = dev_name_src[0]
+            dev_name_id = ix['esc:deployments'][0]['deployment_name']
 
+    # Could use some error checking here - to_do...
     return dev_name, dev_name_id
 
-# To_Do create function for Step 2: get LAN IP
 
-# To_Do Prune flavor of image for Step 3
-def nfv_prune_flavor(s, url, device_name_id):
-    # /api/config/esc_datamodel/tenants/tenant/admin/deployments?deep
-    # Match on device_name_id to get the flavor type
+# Get LAN IP - ok
+def nfv_prune_lan_ip(s, url, device_id):
+    data = nfv_verify_device_deployment(s, url, device=device_id, deep_key=True)
+
+    lan_gw = ""
+    lan_net = ""
+    lan_ip = ""
+
+    for ix in data.values():
+        got_lsta = ix['vm_group'][0]['vm_instance'][0]['interfaces']['interface']
+        lan_gw = got_lsta[2]['gateway']
+        lan_net = got_lsta[2]['network']
+
+    if 'lan' in lan_net:
+        lan_ip_tmp = lan_gw.split('.')
+        lan_ip = lan_ip_tmp[0] + '.' + lan_ip_tmp[1] + '.' + lan_ip_tmp[2] + '.' + "2"
+    return lan_ip
+
+
+
+def get_vm_cfg(s, url, dev_id):
+    u = url + '/api/config/esc_datamodel/tenants/tenant/admin/deployments?deep'
+    vm_flavor_page = s.get(u)
+    r_vm_flavor_page = json.loads(vm_flavor_page.content)
+
+    for i in r_vm_flavor_page.values():
+        got_lsta = i['deployment'][0]['name']
+        if got_lsta == dev_id:
+            return r_vm_flavor_page
+        else:
+            print "Can't find device: %s " % dev_id
+            return False
+
+
+# Get VM Flavor
+def nfv_prune_flavor(s, url, dev_id):
+    d_flav = get_vm_cfg(s, url, dev_id)
+
+    flavor = ""
+    if d_flav:
+        for idx in d_flav.values():
+            got_lsta = idx['deployment'][0]['vm_group']
+            got_lstb = [x['flavor'] for x in got_lsta]
+            flavor = got_lstb[0]
+        return flavor
+    else:
+        return False
 
 
 # Create LAN Bridge - ok (verify this with Ryan's version)
