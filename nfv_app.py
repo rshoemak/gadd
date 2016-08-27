@@ -17,9 +17,12 @@ new_network = "svc-gadd-net"    # Statically assigned for Phase 1 or will we mak
 deep_key = False
 r_bvi_ip = ""
 r_bvi_gw = ""
-device_name = ""
-dev_id = ""
+# device_name = ""
+# dev_id = ""
 r_asa_flavor = ""
+r_csr_flavor = ""
+r_csr_id = ""
+r_csr_vm_name_id = ""
 
 
 def do_message_(mess):
@@ -72,12 +75,20 @@ if __name__ == '__main__':
 
 # ####################  -- NFV SECTION --   ####################
 
-    # Step 1: Get CSR device name and device_name_id
+    # Step 1A: Get CSR flavor, dev_name and vm_name
+    r_csr_flavor, r_csr_id, r_csr_vm_name_id = nfvis_data.nfv_get_csr_cfg(s, url)
+    #print r_csr_flavor, r_csr_id, r_csr_vm_name_id
+
+    '''
+    # Step 1B: Get CSR device name and device_name_id
     dev_name, dev_id = nfvis_data.nfv_prune_name(s, url)
+    '''
 
     # Step 2: Get LAN IP of CSR
-    r_bvi_ip, r_bvi_gw = nfvis_data.nfv_prune_bvi_ip(s, url, dev_id)
+    r_bvi_ip, r_bvi_gw = nfvis_data.nfv_prune_bvi_ip(s, url, r_csr_id)
+    #print r_bvi_ip, r_bvi_gw
 
+    '''
     # Step 3: Get image flavor
     r_flavor = nfvis_data.nfv_prune_flavor(s, url, dev_id)
     if r_flavor:
@@ -85,16 +96,19 @@ if __name__ == '__main__':
     else:
         print "Could NOT gather data on NFVIS device"
         sys.exit(0)
+    '''
 
     # Step 3: Get ASA Flavor
-    r_asa_flavor = nfvis_data.nfv_get_asa_flavor(r_flavor)
+    r_asa_flavor = nfvis_data.nfv_get_asa_flavor(r_csr_flavor)
     if r_asa_flavor:
+        do_message_(message_board.nfv_gather_basics)
         print "CSR FLAVOR: %s    BVI_IP: %s    DEV_NAME: %s    DEV_ID: %s    ASA_FLAVOR: %s" \
-              % (r_flavor, r_bvi_ip, dev_name, dev_id, r_asa_flavor)
+              % (r_csr_flavor, r_bvi_ip, r_csr_vm_name_id, r_csr_id, r_asa_flavor)
         print "NEW_NETWORK: %s    NEW_BRIDGE: %s    BVI_GW: %s" % (new_network, new_bridge, r_bvi_gw)
     else:
         print "%% Could NOT get ASA flavor"
         sys.exit(0)
+
 
     # Step 5:  Create LAN Bridge
     r_create_lanbridge = nfvis_data.nfv_create_newbridge(s, url, new_bridge)
@@ -104,6 +118,8 @@ if __name__ == '__main__':
         print "%% Could NOT create lan bridge"
         do_message_(message_board.nfv_lanbridge_failed)
         sys.exit(0)
+
+
 
     '''
     # Step 6:  Create new network and map to lan bridge
@@ -116,6 +132,8 @@ if __name__ == '__main__':
         sys.exit(0)
     '''
 
+
+    '''
     # Step 7:  Create json payload to instantiate device
     r_created_input_cfg = create_device_input_config.create_device_cfg(r_asa_flavor, new_network, r_bvi_gw, r_bvi_ip)
     if r_created_input_cfg:
@@ -125,6 +143,9 @@ if __name__ == '__main__':
         print "%% Could NOT create INPUT config"
         do_message_(message_board.nfv_input_cfg_failed)
         sys.exit(0)
+    '''
+
+
 
     '''
     # Step 8:  Deployment
@@ -140,3 +161,4 @@ if __name__ == '__main__':
     aci_post_health = aci_data.get_post_app_health(session)
     do_message_(message_board.liner)
     do_message_(aci_post_health)
+    

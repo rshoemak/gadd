@@ -105,6 +105,7 @@ def nfv_verify_device_deployment(s, url, device, deep_key):
 # Prune name and name_id - ok
 def nfv_prune_name(s, url):
     dd = nfv_verify_device_deployment(s, url, device=False, deep_key=False)
+    pprint(dd)
 
     dev_name_id = ""
     dev_name = ""
@@ -150,6 +151,31 @@ def get_vm_cfg(s, url, dev_id):
         else:
             print "Can't find device: %s " % dev_id
             return False
+
+# Get CSR flavor and dev_name_id
+def nfv_get_csr_cfg(s, url):
+    u = url + '/api/config/esc_datamodel/tenants/tenant/admin/deployments?deep'
+    vm_flavor_page = s.get(u)
+    r_vm_flavor_page = json.loads(vm_flavor_page.content)
+
+    csr_flav = ""
+    csr_dev_name_id = ""
+    csr_vm_name = ""
+
+    # Assumption is the CSR is the first deployed VM
+    for i in r_vm_flavor_page.values():
+        csr_flav = i['deployment'][0]['vm_group'][0]['flavor']
+        if 'csr' in csr_flav:
+            csr_dev_name_id = i['deployment'][0]['name']
+            csr_vm_name = i['deployment'][0]['vm_group'][0]['name']
+    return csr_flav, csr_dev_name_id, csr_vm_name
+
+
+# Delete this function/redundant? Get CSR Flavor only and extract dev_name_id
+#def nfv_csr_flavor(s, url):
+#    r_csr_flav, r_csr_dev_name_id = nfv_get_csr_cfg(s, url)
+#    print r_csr_flav, r_csr_dev_name_id
+
 
 
 # Get VM Flavor
