@@ -121,8 +121,8 @@ def nfv_prune_name(s, url):
 
 
 # Get LAN IP - ok
-def nfv_prune_bvi_ip(s, url, device_id):
-    data = nfv_verify_device_deployment(s, url, device=device_id, deep_key=True)
+def nfv_prune_bvi_ip(s, url, r_csr_id):
+    data = nfv_verify_device_deployment(s, url, device=r_csr_id, deep_key=True)
 
     bvi_gw = ""
     lan_net = ""
