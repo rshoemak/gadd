@@ -23,11 +23,16 @@ r_asa_flavor = ""
 r_csr_flavor = ""
 r_csr_id = ""
 r_csr_vm_name_id = ""
+spark_flag = "on"              # default is on, turn off if you'd like to not send messages to spark
 
 
 def do_message_(mess):
-    sparky.send_alert(alert_room_id, mess)
-    return
+    if spark_flag == "on":
+        sparky.send_alert(alert_room_id, mess)
+        return
+    else:
+        pass
+
 
 
 if __name__ == '__main__':
