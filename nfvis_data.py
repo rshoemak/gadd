@@ -102,7 +102,7 @@ def nfv_verify_device_deployment(s, url, device, deep_key):
     return r_asa_deployment_page
 
 
-# Prune name and name_id - ok
+# DELETE ? Prune name and name_id
 def nfv_prune_name(s, url):
     dd = nfv_verify_device_deployment(s, url, device=False, deep_key=False)
     pprint(dd)
@@ -139,6 +139,7 @@ def nfv_prune_bvi_ip(s, url, device_id):
     return bvi_ip, bvi_gw
 
 
+# Possible DELETE - really not sure but might be redundant
 def get_vm_cfg(s, url, dev_id):
     u = url + '/api/config/esc_datamodel/tenants/tenant/admin/deployments?deep'
     vm_flavor_page = s.get(u)
@@ -152,8 +153,10 @@ def get_vm_cfg(s, url, dev_id):
             print "Can't find device: %s " % dev_id
             return False
 
-# Get CSR flavor and dev_name_id
-def nfv_get_csr_cfg(s, url):
+
+# Get CSR flavor and dev_name_id and vm_name_id - ok
+def nfv_get_csr_cfg(s, url, r_vm_deployed_count):
+    count = 0
     u = url + '/api/config/esc_datamodel/tenants/tenant/admin/deployments?deep'
     vm_flavor_page = s.get(u)
     r_vm_flavor_page = json.loads(vm_flavor_page.content)
@@ -161,13 +164,15 @@ def nfv_get_csr_cfg(s, url):
     csr_flav = ""
     csr_dev_name_id = ""
     csr_vm_name = ""
-
-    # Assumption is the CSR is the first deployed VM
-    for i in r_vm_flavor_page.values():
-        csr_flav = i['deployment'][0]['vm_group'][0]['flavor']
-        if 'csr' in csr_flav:
-            csr_dev_name_id = i['deployment'][0]['name']
-            csr_vm_name = i['deployment'][0]['vm_group'][0]['name']
+    while count < r_vm_deployed_count:
+        # Assumption is the CSR is the first deployed VM
+        for i in r_vm_flavor_page.values():
+            flav = i['deployment'][count]['vm_group'][0]['flavor']
+            if 'csr' in flav:
+                csr_dev_name_id = i['deployment'][count]['name']
+                csr_vm_name = i['deployment'][count]['vm_group'][0]['name']
+                csr_flav = i['deployment'][count]['vm_group'][0]['flavor']
+            count += 1
     return csr_flav, csr_dev_name_id, csr_vm_name
 
 
@@ -176,9 +181,19 @@ def nfv_get_csr_cfg(s, url):
 #    r_csr_flav, r_csr_dev_name_id = nfv_get_csr_cfg(s, url)
 #    print r_csr_flav, r_csr_dev_name_id
 
+# Get counts of VMs deployed
+def nfv_get_count_of_vm_deployments(s, url):
+    u = url + '/api/config/esc_datamodel/tenants/tenant/admin/deployments'
+    count_vm_deployed_page = s.get(u)
+    r_count_vm_deployed_page = json.loads(count_vm_deployed_page.content)
+    for iv in r_count_vm_deployed_page.values():
+        vm_deployed_lst = iv['deployment']
+        vm_deployed_count = len(vm_deployed_lst)
+        return vm_deployed_count
 
 
-# Get VM Flavor
+
+# DELETE ? Get VM Flavor
 def nfv_prune_flavor(s, url, dev_id):
     d_flav = get_vm_cfg(s, url, dev_id)
 
@@ -192,7 +207,7 @@ def nfv_prune_flavor(s, url, dev_id):
     else:
         return False
 
-
+# Get ASA Flavor
 def nfv_get_asa_flavor(r_flavor):
     if 'large' in r_flavor:
         return "ASAv30"

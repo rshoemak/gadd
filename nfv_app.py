@@ -75,28 +75,35 @@ if __name__ == '__main__':
 
 # ####################  -- NFV SECTION --   ####################
 
-    # Step 1A: Get CSR flavor, dev_name and vm_name
-    r_csr_flavor, r_csr_id, r_csr_vm_name_id = nfvis_data.nfv_get_csr_cfg(s, url)
-    #print r_csr_flavor, r_csr_id, r_csr_vm_name_id
+    # Step 1a:  Find out how many VM's have been deployed
+    r_vm_deployed_count = nfvis_data.nfv_get_count_of_vm_deployments(s, url)
+
+
+    # Step 1b: Get CSR flavor, dev_name and vm_name
+    r_csr_flavor, r_csr_id, r_csr_vm_name_id = nfvis_data.nfv_get_csr_cfg(s, url, r_vm_deployed_count)
+    # print r_csr_flavor, r_csr_id, r_csr_vm_name_id
 
     '''
+    # delete
     # Step 1B: Get CSR device name and device_name_id
-    dev_name, dev_id = nfvis_data.nfv_prune_name(s, url)
+    #dev_name, dev_id = nfvis_data.nfv_prune_name(s, url)
     '''
 
     # Step 2: Get LAN IP of CSR
     r_bvi_ip, r_bvi_gw = nfvis_data.nfv_prune_bvi_ip(s, url, r_csr_id)
-    #print r_bvi_ip, r_bvi_gw
+    # print r_bvi_ip, r_bvi_gw
 
     '''
+    # delete
     # Step 3: Get image flavor
-    r_flavor = nfvis_data.nfv_prune_flavor(s, url, dev_id)
-    if r_flavor:
-        do_message_(message_board.nfv_gather_basics)
-    else:
-        print "Could NOT gather data on NFVIS device"
-        sys.exit(0)
+    #r_flavor = nfvis_data.nfv_prune_flavor(s, url, dev_id)
+    #if r_flavor:
+    #    do_message_(message_board.nfv_gather_basics)
+    #else:
+    #    print "Could NOT gather data on NFVIS device"
+    #    sys.exit(0)
     '''
+
 
     # Step 3: Get ASA Flavor
     r_asa_flavor = nfvis_data.nfv_get_asa_flavor(r_csr_flavor)
@@ -161,4 +168,4 @@ if __name__ == '__main__':
     aci_post_health = aci_data.get_post_app_health(session)
     do_message_(message_board.liner)
     do_message_(aci_post_health)
-    
+
