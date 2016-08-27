@@ -173,9 +173,8 @@ if __name__ == '__main__':
         do_message_(message_board.nfv_asa_deployment_failed)
     '''
 
-
+    # Step 9:  Update ACI/GADD Health checks
     # Need ability to wait for response 'ack' from NFVis deployment. Add sleep timer?.
     aci_post_health = aci_data.get_post_app_health(session)
     do_message_(message_board.liner)
     do_message_(aci_post_health)
-
