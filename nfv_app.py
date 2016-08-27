@@ -143,8 +143,6 @@ if __name__ == '__main__':
         sys.exit(0)
 
 
-
-    '''
     # Step 6:  Create new network and map to lan bridge
     r_create_net = nfvis_data.nfv_create_new_network(s, url, new_network, new_bridge)
     if r_create_net:    # What will be the code or do we need to do a verify functions?
@@ -153,10 +151,8 @@ if __name__ == '__main__':
         print "%% Could NOT create network and map to lan bridge"
         do_message_(message_board.nfv_net_map_failed)
         sys.exit(0)
-    '''
 
 
-    '''
     # Step 7:  Create json payload to instantiate device
     r_created_input_cfg = create_device_input_config.create_device_cfg(r_asa_flavor, new_network, r_bvi_gw, r_bvi_ip)
     if r_created_input_cfg:
@@ -166,8 +162,6 @@ if __name__ == '__main__':
         print "%% Could NOT create INPUT config"
         do_message_(message_board.nfv_input_cfg_failed)
         sys.exit(0)
-    '''
-
 
 
     '''
