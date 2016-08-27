@@ -16,6 +16,6 @@
     <br>
     <p><strong>While we're turning up the FW at the branch, take a look at your Spark room for messages</p>
     <p><a href="gadd-h100.html"><IMG SRC="images/nfvisrun_opt.png"></a></p>
-    <?php exec("python ../nvfis_app.py"); ?>
+    <?php exec("python ../nfv_app.py"); ?>
 </body>
 </html>
