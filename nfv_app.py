@@ -9,6 +9,7 @@ import aci_data
 import nfvis_data
 import message_board
 import create_device_input_config
+import argparse
 
 # Main Program
 
@@ -23,7 +24,9 @@ r_asa_flavor = ""
 r_csr_flavor = ""
 r_csr_id = ""
 r_csr_vm_name_id = ""
-spark_flag = "on"              # default is on, turn off if you'd like to not send messages to spark
+# default is on, turn off if you'd like to not send messages to spark
+
+
 
 
 def do_message_(mess):
@@ -33,7 +36,15 @@ def do_message_(mess):
     else:
         pass
 
+def get_args():
+    parser = argparse.ArgumentParser(description='Enable or Disable Spark Messaging')
+    # Add arguments
+    parser.add_argument('--spark', help='Disable Spark by typing "--spark off", default is on', type=str, default="on")
+    return parser.parse_args()
 
+
+args = get_args()
+spark_flag = args.spark
 
 if __name__ == '__main__':
 
