@@ -7,7 +7,7 @@ ADD . /app
 # use the following workdir for non-php demo
 # WORKDIR /app/ui
 
-# use this workdir for php flow
+# use this workdir for php flows
 WORKDIR /app/ui/gophp
 
 CMD ["php", "-S", "0.0.0.0:8000"]
