@@ -3,8 +3,6 @@ archive
 gadd_setup_lab.sh
 drone_secrets.yml
 tests
-uiacipredata.py
-uiacipostdata.py
 gadd_setup_basic_template.sh
 gadd_dock_env_template
 gadd_dock_env
