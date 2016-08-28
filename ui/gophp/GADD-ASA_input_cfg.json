@@ -1,0 +1,107 @@
+{
+  "deployment": {
+    "name": "ASAv",
+    "vm_group": {
+      "name": "ASAv",
+      "image": "asav951-201-GADD.ova",
+      "flavor": "ASAv30",
+      "bootup_time": "-1",
+      "recovery_wait_time": "0",
+      "recovery_policy": { "action_on_recovery": "REBOOT_ONLY" },
+      "interfaces": {
+        "interface": [
+          {
+            "nicid": "0",
+            "network": "mgmt-net"
+          },
+          {
+            "nicid": "1",
+            "network": "svc-gadd-net"
+          },
+          {
+            "nicid": "2",
+            "network": "lan-net"
+          }
+        ]
+      },
+      "scaling": {
+        "min_active": "1",
+        "max_active": "1"
+      },
+      "kpi_data": {
+        "kpi": {
+          "event_name": "VM_ALIVE",
+          "metric_value": "1",
+          "metric_cond": "GT",
+          "metric_type": "UINT32",
+          "metric_collector": {
+            "type": "ICMPPing",
+            "nicid": "0",
+            "poll_frequency": "3",
+            "polling_unit": "seconds",
+            "continuous_alarm": "false"
+          }
+        }
+      },
+      "rules": {
+        "admin_rules": {
+          "rule": {
+            "event_name": "VM_ALIVE",
+            "action": [
+              "ALWAYS log",
+              "TRUE servicebooted.sh",
+              "FALSE recover autohealing"
+            ]
+          }
+        }
+      },
+      "config_data": {
+        "configuration": {
+          "dst": "bootstrap_config",
+          "variable": [
+            {
+              "name": "HOSTNAME",
+              "val": "GADD-ASA"
+            },
+            {
+              "name": "VNF_MGMT_NAME",
+              "val": "management"
+            },
+            {
+              "name": "MGMT_IP",
+              "val": "$MGT_IP_ADDRESS"
+            },
+            {
+              "name": "MGMT_MASK",
+              "val": "255.255.255.0"
+            },
+            {
+              "name": "BVI_IP",
+              "val": "192.168.1.2"
+            },
+            {
+              "name": "BVI_MASK",
+              "val": "255.255.255.0"
+            },
+            {
+              "name": "SSH_USERNAME",
+              "val": "cisco"
+            },
+            {
+              "name": "SSH_PASSWORD",
+              "val": "cisco"
+            },
+            {
+              "name": "VNF_MGMT_GW",
+              "val": "20.20.20.1"
+            },
+            {
+              "name": "BVI_GW",
+              "val": "192.168.1.1"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
