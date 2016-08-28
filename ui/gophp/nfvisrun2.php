@@ -12,8 +12,10 @@
 </head>
 <body>
     <br>
-    <p class="main"><strong>While we're turning up the FW at the branch, take a look at your Spark room for messages</p>
-    <p><a href="gadd-h100-2.php"><IMG SRC="images/nfvisrun_opt.png" alt="Fighting Virus"></a></p>
+    <br>
+    <p class="main"><strong>While we're turning up the FW at the branch,
+    please take a look at your Spark room for messages</p>
+    <p><a href="gadd-h100-2.php"><IMG SRC="images/rails.png" alt="spark icon"></a></p>
     <script><?php exec("python ../../nfv_app.py"); ?></script>
 </body>
 </html>
