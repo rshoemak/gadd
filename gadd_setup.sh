@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # run this from command line first: "source gadd_setup"
 #
 echo
