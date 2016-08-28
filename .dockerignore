@@ -3,8 +3,6 @@ gadd_setup_lab.sh
 .drone.sec
 tests
 archive
-gadd_setup_basic_template.sh
-gadd_dock_env_template
 .gitignore
 gadd_dock_env
 nfv-queries.py
