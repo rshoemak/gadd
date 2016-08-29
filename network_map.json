@@ -1,0 +1,22 @@
+{
+  "interfaces": {
+    "interface": [
+      {
+        "nicid": "0",
+        "network": "int-mgmt-net"
+      },
+      {
+        "nicid": "1",
+        "network": "wan-net"
+      },
+      {
+        "nicid": "2",
+        "network": "lan-net"
+      },
+      {
+        "nicid": "3",
+        "network": "mgmt-net"
+      }
+    ]
+  }
+}
