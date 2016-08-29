@@ -77,7 +77,8 @@
         <br>
         <div id="chartdiv" style="width:800px; height:400px; margin:0 auto;"></div>
 
-        <p class="main"><strong>Cisco NGIPS detected a threat to Gadd Application from remote branch!<br></p>
+        <p class="main"><strong>
+        Cisco NGIPS detected a threat to Gadd Application from remote branch!<br></p>
         <p><a href="nfvisrun2.php"><IMG SRC="images/virus_opt.png" alt="virus"></a></p>
 
     </body>

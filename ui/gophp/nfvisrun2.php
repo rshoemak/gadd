@@ -13,8 +13,8 @@
 <body>
     <br>
     <br>
-    <p class="main"><strong>While we're turning up the FW at the branch,
-    please take a look at your Spark room for messages</p>
+    <h3><p class="main">While we're turning up the ASA at the branch,<br>
+    please take a look at your Spark room for messages</p></h3>
     <p><a href="gadd-h100-2.php"><IMG SRC="images/globe.png" alt="globe icon"></a></p>
     <script><?php exec("python ../../nfv_app.py"); ?></script>
 </body>
