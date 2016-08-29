@@ -11,7 +11,7 @@
      </style>
 </head>
 <body>
-    <br>
+    <hr size=90 noshade color="#006699"></hr>
     <br>
     <br>
     <br>

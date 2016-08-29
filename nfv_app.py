@@ -99,26 +99,10 @@ if __name__ == '__main__':
     r_csr_flavor, r_csr_id, r_csr_vm_name_id = nfvis_data.nfv_get_csr_cfg(s, url, r_vm_deployed_count)
     # print r_csr_flavor, r_csr_id, r_csr_vm_name_id
 
-    '''
-    # delete
-    # Step 1B: Get CSR device name and device_name_id
-    #dev_name, dev_id = nfvis_data.nfv_prune_name(s, url)
-    '''
 
     # Step 2: Get LAN IP of CSR
     r_bvi_ip, r_bvi_gw = nfvis_data.nfv_prune_bvi_ip(s, url, r_csr_id)
     # print r_bvi_ip, r_bvi_gw
-
-    '''
-    # delete
-    # Step 3: Get image flavor
-    #r_flavor = nfvis_data.nfv_prune_flavor(s, url, dev_id)
-    #if r_flavor:
-    #    do_message_(message_board.nfv_gather_basics)
-    #else:
-    #    print "Could NOT gather data on NFVIS device"
-    #    sys.exit(0)
-    '''
 
 
     # Step 3: Get ASA Flavor
@@ -153,7 +137,17 @@ if __name__ == '__main__':
         sys.exit(0)
 
 
-    # Step 7:  Create json payload to instantiate device
+    # Step 7a:  assign vnf network
+    r_asgn_net = nfvis_data.nfv_assign_vnf_network(s, url, r_csr_id, new_network)
+    if r_asgn_net:
+        do_message_(message_board.nfv_mapped_vnf_network)
+    if not r_asgn_net:
+        print "%% Count NOT map VNF network"
+        do_message_(message_board.nfv_mapped_vnf_network_failed)
+        sys.exit(0)
+
+
+    # Step 7b:  Create json payload to instantiate device
     r_created_input_cfg = create_device_input_config.create_device_cfg(r_asa_flavor, new_network, r_bvi_gw, r_bvi_ip)
     if r_created_input_cfg:
         print r_created_input_cfg
@@ -164,14 +158,14 @@ if __name__ == '__main__':
         sys.exit(0)
 
 
-    '''
     # Step 8:  Deployment
     r_status_resp = nfvis_data.nfv_deploy_asa(s, url, r_created_input_cfg)
     if r_status_resp:
         do_message_(message_board.nfv_asa_deployment_success)
     else:
         do_message_(message_board.nfv_asa_deployment_failed)
-    '''
+        sys.exit(0)
+
 
     # Step 9:  Update ACI/GADD Health checks
     # Need ability to wait for response 'ack' from NFVis deployment. Add sleep timer?.

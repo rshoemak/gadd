@@ -2,84 +2,6 @@
 import json
 from pprint import pprint
 
-# Probably can delete these older functions. keep for reference for a while
-'''
-# Registering VM images
-def old_nfv_reg_vmimage_nvfis(s, url):
-    # r_message = "Posting an image"
-    u = url + "/api/config/esc_datamodel/images"
-    vm_reg_data = {} # example vm_reg_data = {'test': 'this', 'taste': 'that', 'tic': 'tac'}
-    r_reg_vm_images = s.post(u, data=vm_reg_data)
-    print r_reg_vm_images
-
-
-# Verify VM images status
-def old_nfv_verify_vmimage_nvfis(s, url):
-    u = url + "/api/operational/esc_datamodel/opdata/images"
-    vm_image_page = s.get(u)
-    r_vm_image_page = json.loads(vm_image_page.content)
-    print r_vm_image_page
-
-
-# Get image config - do we need this - TBD?
-def old_nfv_get_image_config(s, url):
-    u = url + "/api/config/esc_datamodel/images"
-    vm_image_config_page = s.get(u)
-    r_vm_image_config_page = json.loads(vm_image_config_page.content)
-    print r_vm_image_config_page
-
-
-# OLD - Assign a port to a LAN Bridge (DELETE)
-def old_nfv_assign_port_lan_bridge(s, url):
-    u = url + "/api/config/bridges/bridge/lan-br"
-    asgn_lanbridge_data = {}
-    r_asgn_lanbridge_page = s.put(u, data=asgn_lanbridge_data)
-    print r_asgn_lanbridge_page
-
-
-# verify lan bridges - TBD
-def old_nfv_verify_port_lan_bridge(s, url):
-    u = url + "/api/config/bridges"
-    lanbridge_page = s.get(u)
-    r_lanbridge_page = json.loads(lanbridge_page.content)
-    print r_lanbridge_page
-
-
-# OLD - create new lan bridge (DELETE)
-def old_nfv_create_new_bridge(s, url, new_bridge):
-    u = url + "/api/config/bridges"
-    make_bridge_payload = '{ \"bridge\": {\"name\": "%s" }}' %(new_bridge)
-    r_create_bridge = s.post(u, data=make_bridge_payload)
-    print r_create_bridge
-    # print make_bridge_payload
-
-
-# verify networks
-def old_nfv_verify_networks(s, url):
-    u = url + "/api/config/networks"
-    networks_page = s.get(u)
-    r_networks_page = json.loads(networks_page.content)
-    print r_networks_page
-
-
-# deploy asa
-def old_nfv_deploy_asa(s, url):
-    u = url + "/api/config/esc_datamodel/tenants/tenant/admin/deployments"
-    asa_config_data = {}
-    r_deploy_asa_page = s.post(u, data=asa_config_data)
-    print r_deploy_asa_page
-
-
-# verify deployment status - not working but hard to test... error status 404
-# need new hearders. application./vnd.collection
-# OLD (DELETE)
-def old_nfv_verify_asa_deployment(s, url):
-    u = url + "/api/operational/esc_datamodel/opdata/tenants/tenant/admin/deployments"
-    s.headers = ({'Content-type': 'application/vnd.yang.data+json', 'Accept': 'application/vnd.yang.collection+json'})
-    asa_deployment_page = s.get(u)
-    r_asa_deployment_page = json.loads(asa_deployment_page.content)
-    print r_asa_deployment_page
-'''
 
 
 # ###################   -- Build new functions here --  ####################
@@ -100,24 +22,6 @@ def nfv_verify_device_deployment(s, url, device, deep_key):
     # Set headers back to default
     s.headers = ({'Content-type': 'application/vnd.yang.data+json', 'Accept': 'application/vnd.yang.data+json'})
     return r_asa_deployment_page
-
-
-# DELETE ? Prune name and name_id
-def nfv_prune_name(s, url):
-    dd = nfv_verify_device_deployment(s, url, device=False, deep_key=False)
-    pprint(dd)
-
-    dev_name_id = ""
-    dev_name = ""
-
-    for ix in dd.values():
-        dev_name = ix['esc:deployments'][0]['vm_group'][0]['name']
-
-        if dev_name == "ROUTER":    # Need to assume CSR's have some default name convention. Needs work...
-            dev_name_id = ix['esc:deployments'][0]['deployment_name']
-
-    # Could use some error checking here - to_do...
-    return dev_name, dev_name_id
 
 
 # Get LAN IP - ok
@@ -176,11 +80,6 @@ def nfv_get_csr_cfg(s, url, r_vm_deployed_count):
     return csr_flav, csr_dev_name_id, csr_vm_name
 
 
-# Delete this function/redundant? Get CSR Flavor only and extract dev_name_id
-#def nfv_csr_flavor(s, url):
-#    r_csr_flav, r_csr_dev_name_id = nfv_get_csr_cfg(s, url)
-#    print r_csr_flav, r_csr_dev_name_id
-
 # Get counts of VMs deployed
 def nfv_get_count_of_vm_deployments(s, url):
     u = url + '/api/config/esc_datamodel/tenants/tenant/admin/deployments'
@@ -232,17 +131,32 @@ def nfv_create_new_network(s, url, new_network, new_bridge):
     u = url + "/api/config/networks"
     createnet_payload = '{ "network": {"name": "%s" , "bridge": "%s" }}' % (new_network, new_bridge)
     r_create_net = s.post(u, data=createnet_payload)
-    return r_create_net     # do we need to return r_create_net of just do a return?
+    return r_create_net
+
+
+# Assign VNF interface to a Network
+def nfv_assign_vnf_network(s, url, r_csr_id, new_network):
+    u = url + "/api/config/esc_datamodel/tenants/tenant/admin/deployments/deployment/%s/vm_group/ROUTER/interfaces"\
+              % r_csr_id
+    asgn_net_payload = '{ "interfaces": { "interface": [ {"nicid": "0", "network": "int-mgmt-net" }, ' \
+                       '{ "nicid": "1", "network": "wan-net" }, { "nicid": "2",  "network": "%s" }, ' \
+                       '{ "nicid": "3",  "network": "mgmt-net"  } ] }}' % new_network
+
+    asgn_net = s.put(u, data=asgn_net_payload)
+    r_asgn_net = str(asgn_net)
+    if "204" in r_asgn_net:
+        return True
+    else:
+        return False
 
 
 # deploy asa
 def nfv_deploy_asa(s, url, r_created_input_cfg):
     u = url + "/api/config/esc_datamodel/tenants/tenant/admin/deployments"
     with open(r_created_input_cfg,'rb') as asa_config_data:
-        r_deploy_asa_page = s.post(u, data=asa_config_data)
-        find_code = r_deploy_asa_page.find('2')
-        status_resp = r_deploy_asa_page[find_code:find_code + 3]
-    if status_resp == "200":
+        deployed_asa_page = s.post(u, data=asa_config_data)
+        r_deployed_asa_page = str(deployed_asa_page)
+    if "201" in r_deployed_asa_page:
         return True
     else:
         return False
