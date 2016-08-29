@@ -10,6 +10,7 @@ token = creds.spark_GetArgs()
 team_email = "rshoemak@cisco.com"
 spark_headers = {'Content-type': 'application/json', 'Authorization': token}
 
+
 # Spark rooms setup
 def setup_room():
     room_items = current_rooms()

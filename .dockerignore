@@ -1,8 +1,9 @@
-*.pyc
-archive
-gadd_setup_lab.sh
 drone_secrets.yml
+gadd_setup_lab.sh
+.drone.sec
 tests
+archive
+.gitignore
 gadd_dock_env
 nfv-queries.py
 archive2
