@@ -71,6 +71,7 @@
     </head>
 
     <body>
+        <hr size=50 noshade color="#006699"></hr>
         <div id="chartdiv" style="width:800px; height:400px; margin:0 auto;"></div>
         <p><a href="nfv.html"><IMG SRC="images/happycomputer_opt.png" alt="Happy Computer"></a></p>
         <p class="main"><strong>Feelin' Good!</p>

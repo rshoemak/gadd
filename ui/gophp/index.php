@@ -73,7 +73,7 @@
     </head>
 
     <body>
-
+        <hr size=50 noshade color="#006699"></hr>
         <br>
         <div id="chartdiv" style="width:800px; height:400px; margin:0 auto;"></div>
 
