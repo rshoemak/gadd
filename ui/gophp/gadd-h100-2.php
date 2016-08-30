@@ -72,7 +72,7 @@
 
     <body>
         <div id="chartdiv" style="width:800px; height:400px; margin:0 auto;"></div>
-        <p><IMG SRC="images/happycomputer_opt.png" alt="Happy Computer"></p>
+        <p><a href="nfv.html"><IMG SRC="images/happycomputer_opt.png" alt="Happy Computer"></a></p>
         <p class="main"><strong>Feelin' Good!</p>
     </body>
 
