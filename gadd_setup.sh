@@ -40,7 +40,7 @@ export NFVIS_URL_INPUT="$r_nfvis_url"
 export TRIGGER_EVENT_IP="$r_trigger_event_ip"
 
 echo
-echo TOKEN_INPUT=$TOKEN_INPUT  >> gadd_dock_env
+echo TOKEN_INPUT=$TOKEN_INPUT  > gadd_dock_env
 echo APIC_URL_INPUT=$APIC_URL_INPUT >> gadd_dock_env
 echo APIC_LOGIN_INPUT=$APIC_LOGIN_INPUT >> gadd_dock_env
 echo APIC_PASSWRD_INPUT=$APIC_PASSWRD_INPUT >> gadd_dock_env
