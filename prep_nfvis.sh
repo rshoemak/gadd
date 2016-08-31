@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 file1="GADD-ASA_input_cfg.json"
-file2="gadd_dock_env"
 file3="ui/gophp/GADD-ASA_input_cfg.json"
 echo
 echo "Removing deployed ASAv"
@@ -25,11 +24,6 @@ echo
 echo "Remove input json file"
 if [ -f $file1 ] ; then
     rm $file1
-fi
-echo
-echo "Remove docker env file"
-if [ -f $file2 ] ; then
-    rm $file2
 fi
 echo
 echo "Remove input json ui file"
