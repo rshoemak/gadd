@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-file="GADD-ASA_input_cfg.json"
+file1="GADD-ASA_input_cfg.json"
+file2="gadd_dock_env"
 echo
 echo "Removing deployed ASAv"
 curl -k -v -u $NFVIS_LOGIN_INPUT:$NFVIS_PASSWRD_INPUT -X DELETE \
@@ -21,8 +22,11 @@ curl -k -v -u $NFVIS_LOGIN_INPUT:$NFVIS_PASSWRD_INPUT -X \
 DELETE $NFVIS_URL_INPUT/api/config/bridges/bridge/svc-gadd-br
 echo
 echo "Remove input json file"
-if [ -f $file ] ; then
-    rm $file
+if [ -f $file1 ] ; then
+    rm $file1
 fi
-
-
+echo
+echo "Remove docker env file"
+if [ -f $file2 ] ; then
+    rm $file2
+fi
