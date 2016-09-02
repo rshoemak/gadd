@@ -123,7 +123,10 @@ def nfv_create_newbridge(s, url, new_bridge):
     u = url + "/api/config/bridges"
     make_bridge_payload = '{ "bridge": {"name": "%s" }}' % new_bridge
     r_create_bridge = s.post(u, data=make_bridge_payload)
-    return r_create_bridge
+    if '201' in r_create_bridge:
+        return True
+    else:
+        return r_create_bridge
 
 
 # Create new network and map to lan bridge
