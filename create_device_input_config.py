@@ -44,7 +44,8 @@ def create_device_cfg(r_asa_flavor, new_network, r_bvi_gw, r_bvi_ip):
     device["$NEW_NETWORK"] = new_network     # drived from ryans function
     # device["$BVI_IP"] = r_bvi_ip           # derived from Lan ip of CSR has wrong interface, needs correction
     device["$BVI_IP"] = "172.16.91.2"        # hard code till we fix error
-    device["$BVI_GW"] = r_bvi_gw             # equals lan IP of CSR
+    # device["$BVI_GW"] = r_bvi_gw           # equals lan IP of CSR, needs correction
+    device["$BVI_GW"] = "172.16.91.1"        # hard code till we fix error
 
     t = open('device_data_template.txt', 'r')
     tempstr = t.read()
