@@ -27,14 +27,13 @@ r_csr_vm_name_id = ""
 # default is on, turn off if you'd like to not send messages to spark
 
 
-
-
 def do_message_(mess):
     if spark_flag == "on":
         sparky.send_alert(alert_room_id, mess)
         return
     else:
         pass
+
 
 def get_args():
     parser = argparse.ArgumentParser(description='Enable or Disable Spark Messaging')
@@ -94,16 +93,13 @@ if __name__ == '__main__':
     # Step 1a:  Find out how many VM's have been deployed
     r_vm_deployed_count = nfvis_data.nfv_get_count_of_vm_deployments(s, url)
 
-
     # Step 1b: Get CSR flavor, dev_name and vm_name
     r_csr_flavor, r_csr_id, r_csr_vm_name_id = nfvis_data.nfv_get_csr_cfg(s, url, r_vm_deployed_count)
     # print r_csr_flavor, r_csr_id, r_csr_vm_name_id
 
-
     # Step 2: Get LAN IP of CSR
     r_bvi_ip, r_bvi_gw = nfvis_data.nfv_prune_bvi_ip(s, url, r_csr_id)
     # print r_bvi_ip, r_bvi_gw
-
 
     # Step 3: Get ASA Flavor
     r_asa_flavor = nfvis_data.nfv_get_asa_flavor(r_csr_flavor)
@@ -116,7 +112,6 @@ if __name__ == '__main__':
         print "%% Could NOT get ASA flavor"
         sys.exit(0)
 
-
     # Step 5:  Create LAN Bridge
     r_create_lanbridge = nfvis_data.nfv_create_newbridge(s, url, new_bridge)
     if r_create_lanbridge:
@@ -125,7 +120,6 @@ if __name__ == '__main__':
         print "%% Could NOT create lan bridge"
         do_message_(message_board.nfv_lanbridge_failed)
         sys.exit(0)
-
 
     # Step 6:  Create new network and map to lan bridge
     r_create_net = nfvis_data.nfv_create_new_network(s, url, new_network, new_bridge)
@@ -136,7 +130,6 @@ if __name__ == '__main__':
         do_message_(message_board.nfv_net_map_failed)
         sys.exit(0)
 
-
     # Step 7a:  assign vnf network
     r_asgn_net = nfvis_data.nfv_assign_vnf_network(s, url, r_csr_id, new_network)
     if r_asgn_net:
@@ -145,7 +138,6 @@ if __name__ == '__main__':
         print "%% Count NOT map VNF network"
         do_message_(message_board.nfv_mapped_vnf_network_failed)
         sys.exit(0)
-
 
     # Step 7b:  Create json payload to instantiate device
     r_created_input_cfg = create_device_input_config.create_device_cfg(r_asa_flavor, new_network, r_bvi_gw, r_bvi_ip)
@@ -157,7 +149,6 @@ if __name__ == '__main__':
         do_message_(message_board.nfv_input_cfg_failed)
         sys.exit(0)
 
-
     # Step 8:  Deployment
     r_status_resp = nfvis_data.nfv_deploy_asa(s, url, r_created_input_cfg)
     if r_status_resp:
@@ -165,7 +156,6 @@ if __name__ == '__main__':
     else:
         do_message_(message_board.nfv_asa_deployment_failed)
         sys.exit(0)
-
 
     # Step 9:  Update ACI/GADD Health checks
     # Need ability to wait for response 'ack' from NFVis deployment. Add sleep timer?.
