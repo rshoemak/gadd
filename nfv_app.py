@@ -142,7 +142,6 @@ if __name__ == '__main__':
     # Step 7b:  Create json payload to instantiate device
     r_created_input_cfg = create_device_input_config.create_device_cfg(r_asa_flavor, new_network, r_bvi_gw, r_bvi_ip)
     if r_created_input_cfg:
-        print r_created_input_cfg
         do_message_(message_board.nfv_creating_cfg)
     if not r_created_input_cfg:
         print "%% Could NOT create INPUT config"
