@@ -69,7 +69,7 @@
             },
             {
               "name": "MGMT_IP",
-              "val": "$MGT_IP_ADDRESS"
+              "val": "$MGMT_IP"
             },
             {
               "name": "MGMT_MASK",
