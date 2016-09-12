@@ -1,10 +1,9 @@
 
 import json
-from pprint import pprint
-
-
+# from pprint import pprint
 
 # ###################   -- Build new functions here --  ####################
+
 
 # verify deployment status - ok
 def nfv_verify_device_deployment(s, url, device, deep_key):
@@ -91,7 +90,6 @@ def nfv_get_count_of_vm_deployments(s, url):
         return vm_deployed_count
 
 
-
 # DELETE ? Get VM Flavor
 def nfv_prune_flavor(s, url, dev_id):
     d_flav = get_vm_cfg(s, url, dev_id)
@@ -105,6 +103,7 @@ def nfv_prune_flavor(s, url, dev_id):
         return flavor
     else:
         return False
+
 
 # Get ASA Flavor
 def nfv_get_asa_flavor(r_flavor):
@@ -123,7 +122,10 @@ def nfv_create_newbridge(s, url, new_bridge):
     u = url + "/api/config/bridges"
     make_bridge_payload = '{ "bridge": {"name": "%s" }}' % new_bridge
     r_create_bridge = s.post(u, data=make_bridge_payload)
-    return r_create_bridge
+    if '201' in r_create_bridge:
+        return True
+    else:
+        return r_create_bridge
 
 
 # Create new network and map to lan bridge
@@ -153,11 +155,10 @@ def nfv_assign_vnf_network(s, url, r_csr_id, new_network):
 # deploy asa
 def nfv_deploy_asa(s, url, r_created_input_cfg):
     u = url + "/api/config/esc_datamodel/tenants/tenant/admin/deployments"
-    with open(r_created_input_cfg,'rb') as asa_config_data:
+    with open(r_created_input_cfg, 'rb') as asa_config_data:
         deployed_asa_page = s.post(u, data=asa_config_data)
         r_deployed_asa_page = str(deployed_asa_page)
     if "201" in r_deployed_asa_page:
         return True
     else:
         return False
-
