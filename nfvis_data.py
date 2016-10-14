@@ -79,11 +79,17 @@ def nfv_get_csr_cfg(s, url, r_vm_deployed_count):
     return csr_flav, csr_dev_name_id, csr_vm_name
 
 
-# Get counts of VMs deployed
+# Step 1a - Get counts of VMs deployed
 def nfv_get_count_of_vm_deployments(s, url):
-    u = url + '/api/config/esc_datamodel/tenants/tenant/admin/deployments'
+    # pre-release api as follows:
+    # u = url + '/api/config/esc_datamodel/tenants/tenant/admin/deployments'
+    # new api replaces 'esc_datamodel' with 'vm_lifecycle':
+    u = url + '/api/config/vm_lifecycle/tenants/tenant/admin/deployments'
     count_vm_deployed_page = s.get(u)
+    print u
+    print count_vm_deployed_page
     r_count_vm_deployed_page = json.loads(count_vm_deployed_page.content)
+
     for iv in r_count_vm_deployed_page.values():
         vm_deployed_lst = iv['deployment']
         vm_deployed_count = len(vm_deployed_lst)

@@ -91,8 +91,9 @@ if __name__ == '__main__':
 # ####################  -- NFV SECTION --   ####################
 
     # Step 1a:  Find out how many VM's have been deployed
+    print "STEP 1A"
     r_vm_deployed_count = nfvis_data.nfv_get_count_of_vm_deployments(s, url)
-
+'''
     # Step 1b: Get CSR flavor, dev_name and vm_name
     r_csr_flavor, r_csr_id, r_csr_vm_name_id = nfvis_data.nfv_get_csr_cfg(s, url, r_vm_deployed_count)
     # print r_csr_flavor, r_csr_id, r_csr_vm_name_id
@@ -161,3 +162,4 @@ if __name__ == '__main__':
     aci_post_health = aci_data.get_post_app_health(session)
     do_message_(message_board.liner)
     do_message_(aci_post_health)
+'''
