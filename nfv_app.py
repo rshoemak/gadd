@@ -93,16 +93,19 @@ if __name__ == '__main__':
     # Step 1a:  Find out how many VM's have been deployed
     print "STEP 1A"
     r_vm_deployed_count = nfvis_data.nfv_get_count_of_vm_deployments(s, url)
-'''
+
     # Step 1b: Get CSR flavor, dev_name and vm_name
+    print "STEP 1B"
     r_csr_flavor, r_csr_id, r_csr_vm_name_id = nfvis_data.nfv_get_csr_cfg(s, url, r_vm_deployed_count)
-    # print r_csr_flavor, r_csr_id, r_csr_vm_name_id
+    print r_csr_flavor, r_csr_id, r_csr_vm_name_id
 
     # Step 2: Get LAN IP of CSR
+    print "STEP 2"
     r_bvi_ip, r_bvi_gw = nfvis_data.nfv_prune_bvi_ip(s, url, r_csr_id)
     # print r_bvi_ip, r_bvi_gw
 
     # Step 3: Get ASA Flavor
+    print "STEP 3"
     r_asa_flavor = nfvis_data.nfv_get_asa_flavor(r_csr_flavor)
     if r_asa_flavor:
         do_message_(message_board.nfv_gather_basics)
@@ -114,6 +117,7 @@ if __name__ == '__main__':
         sys.exit(0)
 
     # Step 5:  Create LAN Bridge
+    print "STEP 5"
     r_create_lanbridge = nfvis_data.nfv_create_newbridge(s, url, new_bridge)
     if r_create_lanbridge:
         do_message_(message_board.nfv_created_lanbridge)
@@ -123,6 +127,7 @@ if __name__ == '__main__':
         sys.exit(0)
 
     # Step 6:  Create new network and map to lan bridge
+    print "STEP 6"
     r_create_net = nfvis_data.nfv_create_new_network(s, url, new_network, new_bridge)
     if r_create_net:    # What will be the code or do we need to do a verify functions?
         do_message_(message_board.nfv_created_net_and_mapped)
@@ -131,15 +136,18 @@ if __name__ == '__main__':
         do_message_(message_board.nfv_net_map_failed)
         sys.exit(0)
 
+
     # Step 7a:  assign vnf network
+    print "STEP 7A"
     r_asgn_net = nfvis_data.nfv_assign_vnf_network(s, url, r_csr_id, new_network)
     if r_asgn_net:
         do_message_(message_board.nfv_mapped_vnf_network)
     if not r_asgn_net:
-        print "%% Count NOT map VNF network"
+        print "%% Could NOT map VNF network"
         do_message_(message_board.nfv_mapped_vnf_network_failed)
         sys.exit(0)
 
+'''
     # Step 7b:  Create json payload to instantiate device
     r_created_input_cfg = create_device_input_config.create_device_cfg(r_asa_flavor, new_network, r_bvi_gw, r_bvi_ip)
     if r_created_input_cfg:
