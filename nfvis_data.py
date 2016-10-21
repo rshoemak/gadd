@@ -131,7 +131,7 @@ def nfv_create_new_network(s, url, new_network, new_bridge):
     return r_create_net
 
 
-# Step 7A - Assign VNF interface to a Network
+# Step 7A - Assign VNF interface to a Network (not working STOP)
 def nfv_assign_vnf_network(s, url, r_csr_id, new_network):
     print r_csr_id
     print type(r_csr_id)
@@ -152,7 +152,18 @@ def nfv_assign_vnf_network(s, url, r_csr_id, new_network):
     else:
         return False
 
+### STOP HERE ####
 
+# Step 8 - deploy asa
+def nfv_deploy_asa(s, url, r_created_input_cfg):
+    u = url + "/api/config/esc_datamodel/tenants/tenant/admin/deployments"
+    with open(r_created_input_cfg, 'rb') as asa_config_data:
+        deployed_asa_page = s.post(u, data=asa_config_data)
+        r_deployed_asa_page = str(deployed_asa_page)
+    if "201" in r_deployed_asa_page:
+        return True
+    else:
+        return False
 
 
 
@@ -192,13 +203,4 @@ def nfv_prune_flavor(s, url, dev_id):
 
 
 
-# deploy asa
-def nfv_deploy_asa(s, url, r_created_input_cfg):
-    u = url + "/api/config/esc_datamodel/tenants/tenant/admin/deployments"
-    with open(r_created_input_cfg, 'rb') as asa_config_data:
-        deployed_asa_page = s.post(u, data=asa_config_data)
-        r_deployed_asa_page = str(deployed_asa_page)
-    if "201" in r_deployed_asa_page:
-        return True
-    else:
-        return False
+
