@@ -38,14 +38,16 @@ def do_message_(mess):
 def get_args():
     parser = argparse.ArgumentParser(description='Enable or Disable Spark Messaging')
     # Add arguments
-    parser.add_argument('--spark', help='Disable Spark by typing "--spark off", default is on', type=str, default="on")
+    parser.add_argument('--spark', dest="spark", help='Disable Spark by typing "--spark off", default is on', type=str, default="on")
     return parser.parse_args()
 
 
-args = get_args()
-spark_flag = args.spark
+
 
 if __name__ == '__main__':
+
+    args = get_args()
+    spark_flag = args.spark
 
     trigger = events.trigger_event()
 

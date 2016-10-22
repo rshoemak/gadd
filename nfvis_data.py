@@ -2,11 +2,9 @@
 import json
 # from pprint import pprint
 
-# ###################   -- Build new functions here --  ####################
-
-
 
 # Possible DELETE - really not sure but might be redundant
+'''
 def get_vm_cfg(s, url, dev_id):
     u = url + '/api/config/esc_datamodel/tenants/tenant/admin/deployments?deep'
     vm_flavor_page = s.get(u)
@@ -19,7 +17,7 @@ def get_vm_cfg(s, url, dev_id):
         else:
             print "Can't find device: %s " % dev_id
             return False
-
+'''
 
 ################### Start DEV5 updating of APIs ######################
 
@@ -156,7 +154,8 @@ def nfv_assign_vnf_network(s, url, r_csr_id, new_network):
 
 # Step 8 - deploy asa
 def nfv_deploy_asa(s, url, r_created_input_cfg):
-    u = url + "/api/config/esc_datamodel/tenants/tenant/admin/deployments"
+    # u = url + "/api/config/esc_datamodel/tenants/tenant/admin/deployments"
+    u = url + "/api/config/vm_lifecycle/tenants/tenant/admin/deployments"
     with open(r_created_input_cfg, 'rb') as asa_config_data:
         deployed_asa_page = s.post(u, data=asa_config_data)
         r_deployed_asa_page = str(deployed_asa_page)
@@ -169,14 +168,8 @@ def nfv_deploy_asa(s, url, r_created_input_cfg):
 
 
 
-
-
-
-
-
-
-
 # DELETE ? Get VM Flavor
+'''
 def nfv_prune_flavor(s, url, dev_id):
     d_flav = get_vm_cfg(s, url, dev_id)
 
@@ -189,7 +182,7 @@ def nfv_prune_flavor(s, url, dev_id):
         return flavor
     else:
         return False
-
+'''
 
 
 
