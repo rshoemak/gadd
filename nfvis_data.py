@@ -136,11 +136,13 @@ def nfv_assign_vnf_network(s, url, r_csr_id, new_network):
     print new_network
    # u = url + "/api/config/esc_datamodel/tenants/tenant/admin/deployments/deployment/%s/vm_group/ROUTER/interfaces"\
    #           % r_csr_id
-    u = url + "/api/config/vm_lifecycle/tenants/tenant/admin/deployments/deployment/{}/vm_group/ISRv/interfaces".format(r_csr_id)
+    u = url + "/api/config/vm_lifecycle/tenants/tenant/admin/deployments/deployment/{}/vm_group/GADD_ISRv/interfaces".format(r_csr_id)
     print u
     asgn_net_payload = '{ "interfaces": { "interface": [ {"nicid": "0", "network": "int-mgmt-net" }, ' \
                        '{ "nicid": "1", "network": "wan-net" }, { "nicid": "2",  "network": "%s" }, ' \
                        '{ "nicid": "3",  "network": "mgmt-net"  } ] }}' % new_network
+
+    print new_network
 
     asgn_net = s.put(u, data=asgn_net_payload)
     r_asgn_net = str(asgn_net)
@@ -166,10 +168,10 @@ def nfv_deploy_asa(s, url, r_created_input_cfg):
 
 
 
-
+'''
 
 # DELETE ? Get VM Flavor
-'''
+
 def nfv_prune_flavor(s, url, dev_id):
     d_flav = get_vm_cfg(s, url, dev_id)
 

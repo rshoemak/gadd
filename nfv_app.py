@@ -149,7 +149,7 @@ if __name__ == '__main__':
         do_message_(message_board.nfv_mapped_vnf_network_failed)
         sys.exit(0)
 
-'''
+
     # Step 7b:  Create json payload to instantiate device
     r_created_input_cfg = create_device_input_config.create_device_cfg(r_asa_flavor, new_network, r_bvi_gw, r_bvi_ip)
     if r_created_input_cfg:
@@ -172,4 +172,3 @@ if __name__ == '__main__':
     aci_post_health = aci_data.get_post_app_health(session)
     do_message_(message_board.liner)
     do_message_(aci_post_health)
-'''
