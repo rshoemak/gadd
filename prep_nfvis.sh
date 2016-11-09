@@ -9,7 +9,7 @@ $NFVIS_URL_INPUT/api/config/vm_lifecycle/tenants/tenant/admin/deployments/deploy
 echo
 echo "Moving ISRv back to LAN Network"
 curl -k -v -u $NFVIS_LOGIN_INPUT:$NFVIS_PASSWRD_INPUT -X PUT \
-$NFVIS_URL_INPUT/api/config/vm_lifecycle/tenants/tenant/admin/deployments/deployment/1478539024/vm_group/GADD_ISRv/interfaces \
+$NFVIS_URL_INPUT/api/config/vm_lifecycle/tenants/tenant/admin/deployments/deployment/1478552844/vm_group/ROUTER/interfaces \
 -H "Content-type: application/vnd.yang.data+json" \
 -d @network_map.json
 echo

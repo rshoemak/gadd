@@ -95,6 +95,7 @@ if __name__ == '__main__':
     # Step 1a:  Find out how many VM's have been deployed
     print "STEP 1A"
     r_vm_deployed_count = nfvis_data.nfv_get_count_of_vm_deployments(s, url)
+    print r_vm_deployed_count
 
     # Step 1b: Get CSR flavor, dev_name and vm_name
     print "STEP 1B"
@@ -104,7 +105,7 @@ if __name__ == '__main__':
     # Step 2: Get LAN IP of CSR
     print "STEP 2"
     r_bvi_ip, r_bvi_gw = nfvis_data.nfv_prune_bvi_ip(s, url, r_csr_id)
-    # print r_bvi_ip, r_bvi_gw
+    print r_bvi_ip, r_bvi_gw
 
     # Step 3: Get ASA Flavor
     print "STEP 3"

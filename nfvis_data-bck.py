@@ -1,7 +1,6 @@
 
 import json
-from pprint import pprint
-import time
+# from pprint import pprint
 
 
 # Possible DELETE - really not sure but might be redundant
@@ -46,7 +45,6 @@ def nfv_get_csr_cfg(s, url, r_vm_deployed_count):
     u = url + '/api/config/vm_lifecycle/tenants/tenant/admin/deployments?deep'
     vm_flavor_page = s.get(u)
     r_vm_flavor_page = json.loads(vm_flavor_page.content)
-    #print r_vm_flavor_page
 
     csr_flav = ""
     csr_dev_name_id = ""
@@ -55,8 +53,7 @@ def nfv_get_csr_cfg(s, url, r_vm_deployed_count):
         # Assumption is the CSR is the first deployed VM
         for i in r_vm_flavor_page.values():
             flav = i['deployment'][count]['vm_group'][0]['flavor']
-            #if 'csr' in flav:
-            if flav:
+            if 'csr' in flav:
                 csr_dev_name_id = i['deployment'][count]['name']
                 csr_vm_name = i['deployment'][count]['vm_group'][0]['name']
                 csr_flav = i['deployment'][count]['vm_group'][0]['flavor']
@@ -92,11 +89,9 @@ def nfv_prune_bvi_ip(s, url, r_csr_id):
     bvi_ip = ""
 
     for ix in data.values():
-        time.sleep(3)
         got_lsta = ix['vm_group'][0]['vm_instance'][0]['interfaces']['interface']
         bvi_gw = got_lsta[2]['gateway']
         lan_net = got_lsta[2]['network']
-        #print bvi_gw, lan_net
 
     if 'lan' in lan_net:
         lan_ip_tmp = bvi_gw.split('.')
@@ -141,7 +136,7 @@ def nfv_assign_vnf_network(s, url, r_csr_id, new_network):
     print new_network
    # u = url + "/api/config/esc_datamodel/tenants/tenant/admin/deployments/deployment/%s/vm_group/ROUTER/interfaces"\
    #           % r_csr_id
-    u = url + "/api/config/vm_lifecycle/tenants/tenant/admin/deployments/deployment/{}/vm_group/ROUTER/interfaces".format(r_csr_id)
+    u = url + "/api/config/vm_lifecycle/tenants/tenant/admin/deployments/deployment/{}/vm_group/GADD_ISRv/interfaces".format(r_csr_id)
     print u
     asgn_net_payload = '{ "interfaces": { "interface": [ {"nicid": "0", "network": "int-mgmt-net" }, ' \
                        '{ "nicid": "1", "network": "wan-net" }, { "nicid": "2",  "network": "%s" }, ' \
