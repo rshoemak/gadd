@@ -47,17 +47,17 @@ def create_device_cfg(r_asa_flavor, new_network, r_bvi_gw, r_bvi_ip):
     #device["$BVI_GW"] = r_bvi_gw           # equals lan IP of CSR, needs correction
     device["$BVI_GW"] = "172.16.91.1"        # hard code till we fix error
 
-    t = open('device_data_template.txt', 'r')
-    tempstr = t.read()
-    t.close()
+
+    with open('device_data_template.txt', 'r') as t:
+        tempstr = t.read()
 
     day_zero_cfg = "%s_input_cfg.json" % DEV_NAME_DERV_CSR_INPUT
 
     output = replace_words(tempstr, device)
 
-    fout = open(day_zero_cfg, 'w')
-    fout.write(output)
-    fout.close()
+    with open(day_zero_cfg, 'w') as fout:
+        fout.write(output)
+
     if len(day_zero_cfg) > 0:
         return day_zero_cfg
     else:
