@@ -18,8 +18,6 @@ new_network = "svc-gadd-net"    # Statically assigned for Phase 1 or will we mak
 deep_key = False
 r_bvi_ip = ""
 r_bvi_gw = ""
-# device_name = ""
-# dev_id = ""
 r_asa_flavor = ""
 r_csr_flavor = ""
 r_csr_id = ""
@@ -112,9 +110,9 @@ if __name__ == '__main__':
     r_asa_flavor = nfvis_data.nfv_get_asa_flavor(r_csr_flavor)
     if r_asa_flavor:
         do_message_(message_board.nfv_gather_basics)
-        print "CSR FLAVOR: %s    BVI_IP: %s    DEV_NAME: %s    DEV_ID: %s    ASA_FLAVOR: %s" \
-              % (r_csr_flavor, r_bvi_ip, r_csr_vm_name_id, r_csr_id, r_asa_flavor)
-        print "NEW_NETWORK: %s    NEW_BRIDGE: %s    BVI_GW: %s" % (new_network, new_bridge, r_bvi_gw)
+        print "CSR FLAVOR: {}    BVI_IP: {}    DEV_NAME: {}    DEV_ID: {}    ASA_FLAVOR: {}"\
+            .format(r_csr_flavor, r_bvi_ip, r_csr_vm_name_id, r_csr_id, r_asa_flavor)
+        print "NEW_NETWORK: {}    NEW_BRIDGE: {}    BVI_GW: {}".format(new_network, new_bridge, r_bvi_gw)
     else:
         print "%% Could NOT get ASA flavor"
         sys.exit(0)
@@ -142,7 +140,7 @@ if __name__ == '__main__':
 
     # Step 7a:  assign vnf network
     print "STEP 7A"
-    r_asgn_net = nfvis_data.nfv_assign_vnf_network(s, url, r_csr_id, new_network)
+    r_asgn_net = nfvis_data.nfv_assign_vnf_network(s, url, r_csr_id, new_network, r_csr_vm_name_id)
     if r_asgn_net:
         do_message_(message_board.nfv_mapped_vnf_network)
     if not r_asgn_net:
