@@ -10,6 +10,7 @@ import nfvis_data
 import message_board
 import create_device_input_config
 import argparse
+import get_csr_ip
 
 # Main Program
 
@@ -54,8 +55,8 @@ if __name__ == '__main__':
         print "no trigger"
         sys.exit(0)
 
-    # basic credential setup for NFVis device
-    url, login, password = creds.nvfis_getgcred()
+    # basic credential setup for NFVIS device
+    nip, url, login, password = creds.nvfis_getgcred()
     s = requests.Session()
     s.auth = (login, password)
     s.headers = ({'Content-type': 'application/vnd.yang.data+json', 'Accept': 'application/vnd.yang.data+json'})
@@ -102,7 +103,7 @@ if __name__ == '__main__':
 
     # Step 2: Get LAN IP of CSR
     print "STEP 2"
-    r_bvi_ip, r_bvi_gw = nfvis_data.nfv_prune_bvi_ip(s, url, r_csr_id)
+    r_bvi_ip, r_bvi_gw = nfvis_data.get_isrv_ip(nip, s, url, r_csr_id)
     print r_bvi_ip, r_bvi_gw
 
     # Step 3: Get ASA Flavor

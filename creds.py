@@ -12,14 +12,15 @@ alg_inp = os.getenv('APIC_LOGIN_INPUT')
 aps_inp = os.getenv('APIC_PASSWRD_INPUT')
 nlg_inp = os.getenv("NFVIS_LOGIN_INPUT")
 nps_inp = os.getenv("NFVIS_PASSWRD_INPUT")
-nurl_inp = os.getenv("NFVIS_URL_INPUT")
+nip_inp = os.getenv("NFVIS_IP_INPUT")
 
 
 def nvfis_getgcred():
     login = nlg_inp
     password = nps_inp
-    url = nurl_inp
-    return url, login, password
+    url = "https://nip_inp"
+    nip = nip_inp
+    return nip, url, login, password
 
 
 def spark_GetArgs():

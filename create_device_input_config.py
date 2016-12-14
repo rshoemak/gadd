@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-# Creata static content for Phase 1 - Ryan TBD?
+# Create static content for Phase 1 - Ryan TBD?
 
 ASAv_IMAGE_INPUT = "ASAv951-201-GADD.ova"   # ok
 DEV_NAME_DERV_CSR_INPUT = "GADD-ASA"    # ok

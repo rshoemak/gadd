@@ -2,6 +2,7 @@
 import json
 from pprint import pprint
 import time
+import get_csr_ip
 
 
 ################### Start DEV5 updating of APIs ######################
@@ -56,8 +57,25 @@ def nfv_verify_device_deployment(s, url, device, deep_key):
     s.headers = ({'Content-type': 'application/vnd.yang.data+json', 'Accept': 'application/vnd.yang.data+json'})
     return r_asa_deployment_page
 
+# Step 2 - Get ISRv LAN IP & Return ASAv IP
+def get_isrv_ip(nip, s, url, r_csr_id):
+    data = nfv_verify_device_deployment(s, url, device=r_csr_id, deep_key=True)
 
-# Step 2 - Get LAN IP - ok
+    for ix in data.values():
+        time.sleep(3)
+        got_lsta = ix['vm_group'][0]['vm_instance'][0]['interfaces']['interface'][0]['port_forwards']['port_forward']
+        isrv_netconf_port = got_lsta[3]['port_number']
+
+    isrv_lan_ip = get_csr_ip.get_lan_ip(nip, isrv_netconf_port)
+
+    lan_ip_tmp = isrv_lan_ip.split('.')
+    bvi_ip = lan_ip_tmp[0] + '.' + lan_ip_tmp[1] + '.' + lan_ip_tmp[2] + '.' + "5"
+    bvi_gw = isrv_lan_ip
+
+    return bvi_ip, bvi_gw
+
+'''
+# Step 2b - Set ASA LAN IP - ok
 def nfv_prune_bvi_ip(s, url, r_csr_id):
     data = nfv_verify_device_deployment(s, url, device=r_csr_id, deep_key=True)
 
@@ -77,8 +95,7 @@ def nfv_prune_bvi_ip(s, url, r_csr_id):
         bvi_ip = lan_ip_tmp[0] + '.' + lan_ip_tmp[1] + '.' + lan_ip_tmp[2] + '.' + "2"
 
     return bvi_ip, bvi_gw
-
-
+'''
 
 # Step 3 - get ASA Flavor
 def nfv_get_asa_flavor(r_flavor):
