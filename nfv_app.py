@@ -10,7 +10,6 @@ import nfvis_data
 import message_board
 import create_device_input_config
 import argparse
-import get_csr_ip
 
 # Main Program
 
@@ -61,6 +60,7 @@ if __name__ == '__main__':
     s.auth = (login, password)
     s.headers = ({'Content-type': 'application/vnd.yang.data+json', 'Accept': 'application/vnd.yang.data+json'})
     s.verify = False    # I don't know if this is needed
+    print nip, url, login, password
 
     # log into APIC
     a_url, a_login, a_password = creds.apic_GetArgs()
@@ -74,7 +74,6 @@ if __name__ == '__main__':
     # Create room if not already created.
     # Add in additional members manually. To do: make automatic
     alert_room_id = sparky.setup_room()
-
 
 # ####################  -- APIC SECTION --  ####################
 

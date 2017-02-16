@@ -6,11 +6,11 @@ file3="ui/gophp/GADD-ASA_input_cfg.json"
 echo
 echo "Removing deployed ASAv"
 curl -k -v -u $NFVIS_LOGIN_INPUT:$NFVIS_PASSWRD_INPUT -X DELETE \
-$NFVIS_URL_INPUT/api/config/esc_datamodel/tenants/tenant/admin/deployments/deployment/ASAv
+$NFVIS_URL_INPUT/api/config/vm_lifecycle/tenants/tenant/admin/deployments/deployment/ASAv
 echo
 echo "Moving ISRv back to LAN Network"
 curl -k -v -u $NFVIS_LOGIN_INPUT:$NFVIS_PASSWRD_INPUT -X PUT \
-$NFVIS_URL_INPUT/api/config/esc_datamodel/tenants/tenant/admin/deployments/deployment/1471415647/vm_group/ROUTER/interfaces \
+$NFVIS_URL_INPUT/api/config/vm_lifecycle/tenants/tenant/admin/deployments/deployment/1481300657/vm_group/ROUTER/interfaces \
 -H "Content-type: application/vnd.yang.data+json" \
 -d @network_map.json
 echo

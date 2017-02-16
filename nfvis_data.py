@@ -49,7 +49,7 @@ def nfv_verify_device_deployment(s, url, device, deep_key):
         # Get all devices, non-verbose
         s.headers = ({'Content-type': 'application/vnd.yang.data+json',
                       'Accept': 'application/vnd.yang.collection+json'})
-        u = url + '/api/operational/esc_datamodel/opdata/tenants/tenant/admin/deployments/'
+        u = url + '/api/operational/vm_lifecycle/opdata/tenants/tenant/admin/deployments/'
     asa_deployment_page = s.get(u)
     r_asa_deployment_page = json.loads(asa_deployment_page.content)
 
@@ -64,7 +64,9 @@ def get_isrv_ip(nip, s, url, r_csr_id):
     for ix in data.values():
         time.sleep(3)
         got_lsta = ix['vm_group'][0]['vm_instance'][0]['interfaces']['interface'][0]['port_forwards']['port_forward']
-        isrv_netconf_port = got_lsta[3]['port_number']
+        print got_lsta
+        isrv_netconf_port = got_lsta[0]['port_number']
+        print isrv_netconf_port
 
     isrv_lan_ip = get_csr_ip.get_lan_ip(nip, isrv_netconf_port)
 
@@ -74,7 +76,7 @@ def get_isrv_ip(nip, s, url, r_csr_id):
 
     return bvi_ip, bvi_gw
 
-'''
+
 # Step 2b - Set ASA LAN IP - ok
 def nfv_prune_bvi_ip(s, url, r_csr_id):
     data = nfv_verify_device_deployment(s, url, device=r_csr_id, deep_key=True)
@@ -95,7 +97,6 @@ def nfv_prune_bvi_ip(s, url, r_csr_id):
         bvi_ip = lan_ip_tmp[0] + '.' + lan_ip_tmp[1] + '.' + lan_ip_tmp[2] + '.' + "2"
 
     return bvi_ip, bvi_gw
-'''
 
 # Step 3 - get ASA Flavor
 def nfv_get_asa_flavor(r_flavor):
@@ -154,7 +155,6 @@ def nfv_deploy_asa(s, url, r_created_input_cfg):
         return True
     else:
         return False
-
 
 
 

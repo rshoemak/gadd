@@ -16,7 +16,6 @@ PASS = 'Chicagoland_123'
 # XML file to open
 FILTER = 'get_interfaces_filter.xml'
 
-# create a main() method
 def get_configured_interfaces(xml_filter, nip, isrv_netconf_port):
     """
     Main method that retrieves the interfaces from config via NETCONF.

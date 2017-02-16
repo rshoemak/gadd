@@ -18,7 +18,7 @@ nip_inp = os.getenv("NFVIS_IP_INPUT")
 def nvfis_getgcred():
     login = nlg_inp
     password = nps_inp
-    url = "https://nip_inp"
+    url = "https://" + nip_inp
     nip = nip_inp
     return nip, url, login, password
 
